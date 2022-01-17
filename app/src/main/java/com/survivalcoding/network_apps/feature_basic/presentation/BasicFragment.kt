@@ -10,11 +10,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.survivalcoding.network_apps.R
+import com.survivalcoding.network_apps.feature_basic.data.datasource.local.LocalTodoDataSource
+import com.survivalcoding.network_apps.feature_basic.data.repository.TodoRepositoryImpl
 import com.survivalcoding.network_apps.feature_basic.presentation.util.BasicViewModelProvider
 
 class BasicFragment : Fragment(R.layout.fragment_basic) {
     private val viewModel by viewModels<BasicViewModel> {
-        BasicViewModelProvider()
+        BasicViewModelProvider(TodoRepositoryImpl(LocalTodoDataSource()))
     }
 
     override fun onCreateView(

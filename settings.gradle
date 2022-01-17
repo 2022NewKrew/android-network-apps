@@ -8,3 +8,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "network_apps"
 include ':app'
+include ':basic:presentation'
+include ':basic:data'
+include ':basic:domain'

@@ -4,4 +4,5 @@ import com.survivalcoding.network_apps.feature_basic.domain.model.Todo
 
 interface TodoRepository {
     suspend fun getTodoById(id: Int): Todo
+    suspend fun getAllTodo(): List<Todo>
 }

@@ -9,19 +9,19 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.survivalcoding.network_apps.App
 import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.feature_basic.presentation.util.BasicViewModelProvider
 
 class BasicFragment : Fragment(R.layout.fragment_basic) {
     private val viewModel by viewModels<BasicViewModel> {
-        BasicViewModelProvider()
+        BasicViewModelProvider((requireActivity().application as App).basicRepository)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         return inflater.inflate(R.layout.fragment_basic, container, false)
     }
 
@@ -34,9 +34,8 @@ class BasicFragment : Fragment(R.layout.fragment_basic) {
         viewModel.state.observe(viewLifecycleOwner, { state ->
             progressBar.isVisible = state.isLoading
             state.todo?.let { todo ->
-                resultTextView.text = todo.toString()
+                if (todo.id != 0) resultTextView.text = todo.toString()
             }
         })
     }
-
 }

@@ -4,13 +4,7 @@ data class Todo(
     val completed: Boolean,
     val id: Int,
     val title: String,
-    val userId: Int
+    val userId: Int,
 )
 
-fun emptyTodo(): Todo =
-    Todo(
-        id = 0,
-        title = "",
-        userId = 0,
-        completed = false
-    )
+class TodoContainer : ArrayList<Todo>()

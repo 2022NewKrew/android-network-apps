@@ -16,10 +16,9 @@ class BasicViewModel(
             _state.value = state.value!!.copy(isLoading = true)
 
             _state.value = state.value!!.copy(
-                todo = todoRepository.getTodoById(1)
+                todo = todoRepository.getTodoById(1),
+                isLoading = false
             )
-
-            _state.value = state.value!!.copy(isLoading = false)
         }
     }
 

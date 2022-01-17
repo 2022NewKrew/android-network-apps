@@ -4,6 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
+    android:background="@drawable/folded_rectangle"
+    android:layout_marginTop="10dp"
+    android:contentDescription="conference item"
+    android:gravity="center"
     >
 
 
@@ -11,7 +15,10 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         tools:text="name"
+        android:contentDescription="conference item name"
+
         />
 
     <TextView
@@ -21,6 +28,9 @@
         android:layout_below="@id/name"
         tools:text="location"
         android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:contentDescription="conference item location"
+
         />
 
 

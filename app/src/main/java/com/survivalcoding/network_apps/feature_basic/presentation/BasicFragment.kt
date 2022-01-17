@@ -11,9 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.survivalcoding.network_apps.App
 import com.survivalcoding.network_apps.R
+import com.survivalcoding.network_apps.databinding.FragmentBasicBinding
 import com.survivalcoding.network_apps.feature_basic.presentation.util.BasicViewModelProvider
 
 class BasicFragment : Fragment(R.layout.fragment_basic) {
+    private var _binding: FragmentBasicBinding? = null
+    private val binding get() = _binding!!
+
     private val viewModel by viewModels<BasicViewModel> {
         BasicViewModelProvider((requireActivity().application as App).basicRepository)
     }
@@ -22,19 +26,25 @@ class BasicFragment : Fragment(R.layout.fragment_basic) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_basic, container, false)
+        _binding = FragmentBasicBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val resultTextView = view.findViewById<TextView>(R.id.result_text_view)
-        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+        binding.ibPreviousTodoButton.setOnClickListener {
+            viewModel.onEvent(BasicEvent.MoveToPreviousTodo)
+        }
+
+        binding.ibFollowingTodoButton.setOnClickListener {
+            viewModel.onEvent(BasicEvent.MoveToFollowingTodo)
+        }
 
         viewModel.state.observe(viewLifecycleOwner, { state ->
-            progressBar.isVisible = state.isLoading
-            state.todo?.let { todo ->
-                if (todo.id != 0) resultTextView.text = todo.toString()
+            binding.progressBar.isVisible = state.isLoading
+            state.todo.let { todo ->
+                if (todo.id != 0) binding.tvUseridInput.text = todo.toString()
             }
         })
     }

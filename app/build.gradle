@@ -29,6 +29,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    viewBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -54,4 +58,6 @@ dependencies {
 
     // repeatOnLifeCycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 }

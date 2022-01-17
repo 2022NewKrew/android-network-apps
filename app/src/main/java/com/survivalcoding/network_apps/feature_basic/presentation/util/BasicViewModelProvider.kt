@@ -3,7 +3,7 @@ package com.survivalcoding.network_apps.feature_basic.presentation.util
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.survivalcoding.network_apps.feature_basic.data.repository.TodoRepositoryImpl
-import com.survivalcoding.network_apps.feature_basic.network.TodosApi
+import com.survivalcoding.network_apps.feature_basic.data.network.TodosApi
 import com.survivalcoding.network_apps.feature_basic.presentation.BasicViewModel
 
 class BasicViewModelProvider : ViewModelProvider.NewInstanceFactory() {

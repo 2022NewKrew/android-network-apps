@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.feature_basic.network
+package com.survivalcoding.network_apps.feature_basic.data.network
 
 import com.survivalcoding.network_apps.feature_basic.domain.model.Todo
 import retrofit2.Response

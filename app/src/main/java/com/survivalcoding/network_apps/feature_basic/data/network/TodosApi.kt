@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.feature_basic.network
+package com.survivalcoding.network_apps.feature_basic.data.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

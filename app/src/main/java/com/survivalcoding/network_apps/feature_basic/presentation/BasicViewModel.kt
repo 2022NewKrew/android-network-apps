@@ -1,26 +1,36 @@
 package com.survivalcoding.network_apps.feature_basic.presentation
 
-import androidx.lifecycle.*
-import com.survivalcoding.network_apps.feature_basic.domain.repository.TodoRepository
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.survivalcoding.network_apps.feature_basic.domain.model.Todo
+import com.survivalcoding.network_apps.feature_basic.domain.usecase.GetTodoUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class BasicViewModel(
-    private val todoRepository: TodoRepository
+    private val getTodoUseCase: GetTodoUseCase,
 ) : ViewModel() {
+    private val _todo = MutableStateFlow(
+        Todo(
+            completed = false,
+            id = 0,
+            title = "",
+            userId = 0,
+        )
+    )
+    private val _isLoading = MutableStateFlow(true)
 
-    private val _state = MutableLiveData(BasicState())
-    val state: LiveData<BasicState> = _state
+    val state = combine(_todo, _isLoading) { todo, isLoading ->
+        BasicState(todo, isLoading)
+    }.asLiveData()
 
     init {
         viewModelScope.launch {
-            _state.value = state.value!!.copy(isLoading = true)
-
-            _state.value = state.value!!.copy(
-                todo = todoRepository.getTodoById(1)
-            )
-
-            _state.value = state.value!!.copy(isLoading = false)
+            val todo = getTodoUseCase(1)
+            _todo.value = todo
+            _isLoading.value = false
         }
     }
-
 }

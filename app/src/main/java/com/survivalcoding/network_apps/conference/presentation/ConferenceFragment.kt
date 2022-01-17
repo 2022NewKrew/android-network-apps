@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.feature_basic.presentation
+package com.survivalcoding.network_apps.conference.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.survivalcoding.network_apps.MyApp
 import com.survivalcoding.network_apps.R
-import com.survivalcoding.network_apps.feature_basic.presentation.util.BasicViewModelProvider
+import com.survivalcoding.network_apps.conference.presentation.util.ConferenceViewModelProvider
 
-class BasicFragment : Fragment(R.layout.fragment_basic) {
-    private val viewModel by viewModels<BasicViewModel> {
-        BasicViewModelProvider((requireActivity().application as MyApp).sampleRepository)
+class ConferenceFragment : Fragment(R.layout.fragment_conference) {
+    private val viewModel by viewModels<ConferenceViewModel> {
+        ConferenceViewModelProvider((requireActivity().application as MyApp).conferenceRepository)
     }
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ class BasicFragment : Fragment(R.layout.fragment_basic) {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_basic, container, false)
+        return inflater.inflate(R.layout.fragment_conference, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,8 +34,8 @@ class BasicFragment : Fragment(R.layout.fragment_basic) {
 
         viewModel.state.observe(viewLifecycleOwner, { state ->
             progressBar.isVisible = state.isLoading
-            state.todo?.let { todo ->
-                resultTextView.text = todo.toString()
+            state.conferenceInfo?.let { items ->
+                resultTextView.text = items[0].toString()
             }
         })
     }

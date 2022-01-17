@@ -17,6 +17,10 @@
             android:exported="false"
             android:label="Basic" />
         <activity
+            android:name=".conference.presentation.ConferenceActivity"
+            android:exported="false"
+            android:label="conference" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

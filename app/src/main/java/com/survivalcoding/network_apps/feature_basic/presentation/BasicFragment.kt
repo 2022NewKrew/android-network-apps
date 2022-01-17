@@ -43,9 +43,12 @@ class BasicFragment : Fragment(R.layout.fragment_basic) {
 
         viewModel.state.observe(viewLifecycleOwner, { state ->
             binding.progressBar.isVisible = state.isLoading
-            state.todo.let { todo ->
-                if (todo.id != 0) binding.tvUseridInput.text = todo.toString()
-            }
+            binding.clData.isVisible = !state.isLoading
+
+            binding.tvUseridInput.text = state.todo.userId.toString()
+            binding.tvIdInput.text = state.todo.id.toString()
+            binding.tvTitleInput.text = state.todo.title
+            binding.tvCompletedInput.text = state.todo.completed.toString()
         })
     }
 }

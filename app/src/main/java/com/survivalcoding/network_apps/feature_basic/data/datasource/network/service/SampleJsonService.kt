@@ -7,5 +7,5 @@ import retrofit2.http.Path
 interface SampleJsonService {
 
     @GET("todos/{id}")
-    suspend fun getTodo(@Path("id") id: String): Todo
+    suspend fun getTodo(@Path("id") id: Int): Todo
 }

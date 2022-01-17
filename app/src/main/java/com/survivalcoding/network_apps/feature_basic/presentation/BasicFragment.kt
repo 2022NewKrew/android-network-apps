@@ -9,12 +9,13 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.survivalcoding.network_apps.MyApp
 import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.feature_basic.presentation.util.BasicViewModelProvider
 
 class BasicFragment : Fragment(R.layout.fragment_basic) {
     private val viewModel by viewModels<BasicViewModel> {
-        BasicViewModelProvider()
+        BasicViewModelProvider((requireActivity().application as MyApp).remoteTodoRepository)
     }
 
     override fun onCreateView(

@@ -15,6 +15,7 @@ class BasicViewModel(
         viewModelScope.launch {
             _state.value = state.value!!.copy(isLoading = true)
 
+            todoRepository.getTodoById(1)
             _state.value = state.value!!.copy(
                 todo = todoRepository.getTodoById(1)
             )

@@ -2,7 +2,6 @@ package com.survivalcoding.network_apps.feature_basic.data.datasource.remote
 
 import com.survivalcoding.network_apps.feature_basic.data.datasource.remote.service.BasicTodoService
 import com.survivalcoding.network_apps.feature_basic.domain.model.Todo
-import com.survivalcoding.network_apps.feature_basic.domain.model.TodoContainer
 
 class BasicTodoNetworkSource(
     private val todoService: BasicTodoService,
@@ -11,7 +10,7 @@ class BasicTodoNetworkSource(
         return todoService.getTodo(id)
     }
 
-    suspend fun getAllTodos(): TodoContainer {
+    suspend fun getAllTodos(): ArrayList<Todo> {
         return todoService.getAllTodos()
     }
 }

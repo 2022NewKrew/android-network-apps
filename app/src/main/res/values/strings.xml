@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">network_apps</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="previous_todo">Previous todo</string>
+    <string name="following_todo">Following todo</string>
+
+    <string name="todo_userId">"userId": </string>
+    <string name="todo_id">"id": </string>
+    <string name="todo_title">"title": </string>
+    <string name="todo_completed">"completed": </string>
 </resources>

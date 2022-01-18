@@ -13,8 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Network_apps">
         <activity
-            android:name=".conferences.presentation.list.ConferencesActivity"
-            android:exported="false" />
+            android:name=".conferences.presentation.ConferencesActivity"
+            android:exported="false"
+            android:label="컨퍼런스 앱1" />
         <activity
             android:name=".feature_basic.presentation.BasicActivity"
             android:exported="false"

@@ -10,5 +10,10 @@
     <string name="todo_completed">"completed": </string>
 
     <string name="conference_title">Conferences</string>
+    <string name="information_title">Information_title</string>
     <string name="sample">Sample</string>
+    <string name="information_back">Conferences</string>
+    <string name="information_location">Information_location</string>
+    <string name="information_period">Information_period</string>
+    <string name="information_link">Information_link</string>
 </resources>

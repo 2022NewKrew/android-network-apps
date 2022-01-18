@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.feature_basic.domain.repository
+package com.survivalcoding.network_apps.feature_basic.data.repository
 
 import android.util.Log
 import com.survivalcoding.network_apps.feature_basic.domain.model.NetworkResult

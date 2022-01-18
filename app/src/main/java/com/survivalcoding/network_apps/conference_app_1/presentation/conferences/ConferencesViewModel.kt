@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.*
 import com.survivalcoding.network_apps.conference_app_1.domain.repository.ConferenceRepository
+import com.survivalcoding.network_apps.conference_app_1.domain.usecase.GetConferencesUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -11,21 +12,22 @@ import java.net.SocketException
 import java.net.UnknownHostException
 
 class ListViewModel(
-    private val conferenceRepository: ConferenceRepository,
+    private val getConferencesUseCase: GetConferencesUseCase,
     private val application: Application
 ) : ViewModel() {
     private var _state = MutableLiveData(ConferencesState())
     val state: LiveData<ConferencesState> = _state
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        getErrorMessage(throwable)
+        _state.value = _state.value!!.copy(isLoading = false)
+    }
 
     init {
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            getErrorMessage(throwable)
-            _state.value = _state.value!!.copy(isLoading = false)
-        }) {
+        viewModelScope.launch(exceptionHandler) {
             _state.value = _state.value!!.copy(isLoading = true)
             _state.postValue(
                 _state.value!!.copy(
-                    conferences = conferenceRepository.getConferences(),
+                    conferences = getConferencesUseCase.invoke(),
                     isLoading = false
                 )
             )
@@ -59,8 +61,8 @@ class ListViewModelFactory(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ListViewModel::class.java))
             return ListViewModel(
-                application = application,
-                conferenceRepository = conferenceRepository,
+                getConferencesUseCase = GetConferencesUseCase(conferenceRepository),
+                application = application
             ) as T
         else throw IllegalArgumentException()
     }

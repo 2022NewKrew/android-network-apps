@@ -7,9 +7,10 @@ import java.net.ConnectException
 class ConferenceRetrofitDataSource(private val conferenceRetrofitService: ConferenceService) :
     ConferenceRemoteDataSource {
     override suspend fun getConferences(): List<Conference> {
-        conferenceRetrofitService.getConferences().let {
-            if (it.isSuccessful) {
-                return it.body() ?: listOf()
+        conferenceRetrofitService.getConferences().let { response ->
+            if (response.isSuccessful) {
+                return response.body()?.map { moshiConference -> moshiConference.convert() }
+                    ?: listOf()
             } else {
                 throw ConnectException()
             }

@@ -1,6 +1,7 @@
 package com.survivalcoding.network_apps.conference_app_1.presentation.detail
 
 import android.content.Intent
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -32,6 +33,8 @@ class DetailFragment : Fragment() {
             binding.country.text = conference.location
             binding.date.text = resources.getString(R.string.date, conference.start, conference.end)
             binding.link.text = conference.link
+            binding.link.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
             binding.link.setOnClickListener {
                 val webpage: Uri = Uri.parse(conference.link)
                 val intent = Intent(Intent.ACTION_VIEW, webpage)
@@ -39,6 +42,10 @@ class DetailFragment : Fragment() {
                     startActivity(intent)
                 }
             }
+        }
+
+        binding.toolbar.setNavigationOnClickListener {
+            parentFragmentManager.popBackStack()
         }
     }
 

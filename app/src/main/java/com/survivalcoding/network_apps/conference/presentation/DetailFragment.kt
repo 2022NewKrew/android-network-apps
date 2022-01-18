@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.conference.domain.model.ConferenceInfo
 import com.survivalcoding.network_apps.databinding.FragmentDetailBinding
+import android.content.Intent
+import android.net.Uri
 
 
 class DetailFragment : Fragment() {
@@ -38,6 +40,13 @@ class DetailFragment : Fragment() {
                 val range = it.start + " - " + it.end
                 binding.detailRange.text = range
                 binding.detailLink.text = it.link
+            }
+        }
+        binding.detailLink.setOnClickListener {
+            if (binding.detailLink.text.isNotEmpty()) {
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(binding.detailLink.text.toString()))
+                startActivity(intent)
             }
         }
 

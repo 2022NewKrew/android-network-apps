@@ -48,7 +48,7 @@
         android:layout_below="@id/detail_range"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:autoLink="web"
+        android:textColor="@android:color/holo_blue_light"
         android:text="@string/hello_blank_fragment" />
 
 

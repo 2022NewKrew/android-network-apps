@@ -3,7 +3,9 @@
     package="com.survivalcoding.network_apps">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <!--모든 외부 앱 접근 가능하도록 - 권장하지 않는다고 한다.
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    -->
     <application
         android:name=".MyApp"
         android:allowBackup="true"

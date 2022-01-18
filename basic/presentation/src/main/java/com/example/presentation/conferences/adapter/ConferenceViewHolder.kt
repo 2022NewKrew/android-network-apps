@@ -1,0 +1,28 @@
+package com.example.presentation.conferences.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.model.Conference
+import com.example.presentation.databinding.ConferenceListItemBinding
+
+class ConferenceViewHolder private constructor(private val binding: ConferenceListItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(conference: Conference) {
+        binding.nameTextView.text = conference.name
+        binding.locationTextView.text = conference.location
+    }
+
+    companion object {
+        fun from(parent: ViewGroup): ConferenceViewHolder {
+            return ConferenceViewHolder(
+                ConferenceListItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+        }
+    }
+}

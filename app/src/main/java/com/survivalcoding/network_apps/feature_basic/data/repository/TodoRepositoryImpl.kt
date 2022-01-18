@@ -12,6 +12,6 @@ class TodoRepositoryImpl @Inject constructor(
 ) : TodoRepository {
 
     override suspend fun getTodoById(id: Int): Todo? {
-        return dataSource.getData()
+        return dataSource.getData(id)
     }
 }

@@ -1,5 +1,6 @@
 package com.survivalcoding.network_apps.feature_basic.di
 
+import com.survivalcoding.network_apps.feature_basic.data.TodoDataSourceModule
 import com.survivalcoding.network_apps.feature_basic.data.datasource.TodoDataSource
 import com.survivalcoding.network_apps.feature_basic.data.repository.TodoRepositoryImpl
 import com.survivalcoding.network_apps.feature_basic.domain.repository.TodoRepository
@@ -14,5 +15,5 @@ import dagger.hilt.android.scopes.ViewModelScoped
 object TodoRepositoryModule {
     @Provides
     @ViewModelScoped
-    fun provideTodoRepository(dataSource: TodoDataSource): TodoRepository = TodoRepositoryImpl(dataSource)
+    fun provideTodoRepository(@TodoDataSourceModule.TodoRemoteDataSource dataSource: TodoDataSource): TodoRepository = TodoRepositoryImpl(dataSource)
 }

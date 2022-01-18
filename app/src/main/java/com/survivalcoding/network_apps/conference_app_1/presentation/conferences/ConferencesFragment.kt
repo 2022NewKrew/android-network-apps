@@ -25,8 +25,8 @@ class ConferencesFragment : Fragment() {
     private var _binding: FragmentConferencesBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<ListViewModel> {
-        ListViewModelFactory(
+    private val viewModel by viewModels<ConferencesViewModel> {
+        ConferencesViewModelFactory(
             ConferenceRepositoryImpl(
                 ConferenceRemoteDataSource(ConferencesApi)
             )

@@ -6,7 +6,7 @@ import com.survivalcoding.network_apps.conference_app_1.domain.usecase.GetConfer
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
-class ListViewModel(
+class ConferencesViewModel(
     private val getConferencesUseCase: GetConferencesUseCase,
 ) : ViewModel() {
     private var _state = MutableLiveData(ConferencesState())
@@ -39,12 +39,12 @@ class ListViewModel(
     }
 }
 
-class ListViewModelFactory(
+class ConferencesViewModelFactory(
     private val conferenceRepository: ConferenceRepository,
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ListViewModel::class.java))
-            return ListViewModel(
+        if (modelClass.isAssignableFrom(ConferencesViewModel::class.java))
+            return ConferencesViewModel(
                 getConferencesUseCase = GetConferencesUseCase(conferenceRepository),
             ) as T
         else throw IllegalArgumentException()

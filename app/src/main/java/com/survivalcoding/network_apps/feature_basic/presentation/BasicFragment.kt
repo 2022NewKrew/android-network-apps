@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -33,11 +31,11 @@ class BasicFragment : Fragment(R.layout.fragment_basic) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ibPreviousTodoButton.setOnClickListener {
+        binding.clPrevious.setOnClickListener {
             viewModel.onEvent(BasicEvent.MoveToPreviousTodo)
         }
 
-        binding.ibFollowingTodoButton.setOnClickListener {
+        binding.clFollowing.setOnClickListener {
             viewModel.onEvent(BasicEvent.MoveToFollowingTodo)
         }
 
@@ -49,6 +47,14 @@ class BasicFragment : Fragment(R.layout.fragment_basic) {
             binding.tvIdInput.text = state.todo.id.toString()
             binding.tvTitleInput.text = state.todo.title
             binding.tvCompletedInput.text = state.todo.completed.toString()
+
+            binding.ibPreviousTodoButton.isVisible = state.number != 0
+            binding.ibFollowingTodoButton.isVisible = state.number != state.todoList.size - 1
         })
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

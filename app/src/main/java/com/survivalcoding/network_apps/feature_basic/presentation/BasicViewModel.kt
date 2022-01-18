@@ -17,7 +17,7 @@ class BasicViewModel(
     private val _isLoading = MutableStateFlow(true)
 
     val state = combine(_todoList, _todoNumber, _isLoading) { todoList, number, isLoading ->
-        BasicState(todoList[number], isLoading)
+        BasicState(todoList, isLoading, number)
     }.asLiveData()
 
     init {
@@ -30,7 +30,7 @@ class BasicViewModel(
     fun onEvent(event: BasicEvent) {
         when (event) {
             BasicEvent.MoveToFollowingTodo -> {
-                _todoNumber.value = (_todoNumber.value + 1).coerceAtMost(_todoList.value.size)
+                _todoNumber.value = (_todoNumber.value + 1).coerceAtMost(_todoList.value.size - 1)
             }
             is BasicEvent.MoveToInputNumberTodo -> {
                 _todoNumber.value = event.num

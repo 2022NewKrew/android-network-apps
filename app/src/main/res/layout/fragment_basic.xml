@@ -12,8 +12,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ib_following_todo_button"
-        app:layout_constraintStart_toEndOf="@+id/ib_previous_todo_button"
+        app:layout_constraintEnd_toStartOf="@+id/cl_following"
+        app:layout_constraintStart_toEndOf="@+id/cl_previous"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -100,31 +100,52 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <ImageButton
-        android:id="@+id/ib_previous_todo_button"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_previous"
         android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:background="#00000000"
-        android:contentDescription="@string/previous_todo"
-        android:src="@drawable/ic_baseline_arrow_back_ios_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/black" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/ib_following_todo_button"
+        <ImageButton
+            android:id="@+id/ib_previous_todo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="#00000000"
+            android:contentDescription="@string/previous_todo"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_following"
         android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical|end"
-        android:background="#00000000"
-        android:contentDescription="@string/previous_todo"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/black" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ib_following_todo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:background="#00000000"
+            android:contentDescription="@string/previous_todo"
+            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

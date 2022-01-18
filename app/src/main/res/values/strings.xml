@@ -8,4 +8,7 @@
     <string name="todo_id">"id": </string>
     <string name="todo_title">"title": </string>
     <string name="todo_completed">"completed": </string>
+
+    <string name="conference_title">Conferences</string>
+    <string name="sample">Sample</string>
 </resources>

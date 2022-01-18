@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import com.survivalcoding.network_apps.conferences.presentation.list.ConferencesActivity
 import com.survivalcoding.network_apps.feature_basic.presentation.BasicActivity
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this@MainActivity, BasicActivity::class.java))
                 },
                 AppInfo("컨퍼런스 앱 1") {
-
+                    startActivity(Intent(this@MainActivity, ConferencesActivity::class.java))
                 },
                 AppInfo("Paging") {
 

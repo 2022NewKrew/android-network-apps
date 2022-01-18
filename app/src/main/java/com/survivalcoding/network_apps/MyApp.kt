@@ -3,7 +3,7 @@ package com.survivalcoding.network_apps
 import android.app.Application
 import com.survivalcoding.network_apps.conference.data.datasource.network.RemoteCnfDataSource
 import com.survivalcoding.network_apps.conference.data.datasource.network.service.ConferenceService
-import com.survivalcoding.network_apps.conference.data.repository.RemoteCnfListRepositoryImpl
+import com.survivalcoding.network_apps.conference.data.repository.ConferenceRepositoryImpl
 import com.survivalcoding.network_apps.feature_basic.data.datasource.network.RemoteDataSource
 import com.survivalcoding.network_apps.feature_basic.data.datasource.network.service.SampleJsonService
 import com.survivalcoding.network_apps.feature_basic.data.repository.RemoteTodoRepositoryImpl
@@ -28,8 +28,8 @@ class MyApp : Application() {
     }
 
 
-    val conferenceRepository: RemoteCnfListRepositoryImpl by lazy {
-        RemoteCnfListRepositoryImpl(
+    val conferenceRepository: ConferenceRepositoryImpl by lazy {
+        ConferenceRepositoryImpl(
             RemoteCnfDataSource(
                 conferenceRetrofit.create(ConferenceService::class.java)
             )

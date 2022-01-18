@@ -1,4 +1,5 @@
 package com.survivalcoding.network_apps.conference.presentation.adapter
+
 import androidx.recyclerview.widget.DiffUtil
 import com.survivalcoding.network_apps.conference.domain.model.ConferenceInfo
 

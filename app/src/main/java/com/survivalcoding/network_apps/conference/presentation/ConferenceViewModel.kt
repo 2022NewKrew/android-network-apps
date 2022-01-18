@@ -17,7 +17,7 @@ class ConferenceViewModel(
 
             _state.value = state.value!!.copy(
                 // 변경사항
-                conferenceInfo  = conferenceRepository.getConferenceList()
+                conferenceInfo = conferenceRepository.getConferenceList()
             )
 
             _state.value = state.value!!.copy(isLoading = false)

@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:textColor="@color/white"
         tools:text="name"
         android:contentDescription="conference item name"
 
@@ -29,6 +30,7 @@
         tools:text="location"
         android:layout_marginTop="5dp"
         android:gravity="center"
+        android:textColor="@color/white"
         android:contentDescription="conference item location"
 
         />

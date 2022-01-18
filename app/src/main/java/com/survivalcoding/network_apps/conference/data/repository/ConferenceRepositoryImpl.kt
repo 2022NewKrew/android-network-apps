@@ -5,6 +5,8 @@ import com.survivalcoding.network_apps.conference.domain.model.ConferenceInfo
 import com.survivalcoding.network_apps.conference.domain.repository.ConferenceRepository
 
 // 변경사항
-class RemoteCnfListRepositoryImpl(private val remoteCnfDataSource: RemoteCnfDataSource) : ConferenceRepository {
-    override suspend fun getConferenceList(): List<ConferenceInfo> = remoteCnfDataSource.getConferenceList()
+class ConferenceRepositoryImpl(private val remoteCnfDataSource: RemoteCnfDataSource) :
+    ConferenceRepository {
+    override suspend fun getConferenceList(): List<ConferenceInfo> =
+        remoteCnfDataSource.getConferenceList()
 }

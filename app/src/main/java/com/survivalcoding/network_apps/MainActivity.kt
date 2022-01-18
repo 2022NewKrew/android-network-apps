@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import com.survivalcoding.network_apps.feature_basic.presentation.BasicActivity
+import com.survivalcoding.network_apps.feature_conference_app_1.ui.ConferenceApp1Activity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this@MainActivity, BasicActivity::class.java))
                 },
                 AppInfo("컨퍼런스 앱 1") {
-
+                    startActivity(Intent(this@MainActivity, ConferenceApp1Activity::class.java))
                 },
                 AppInfo("Paging") {
 

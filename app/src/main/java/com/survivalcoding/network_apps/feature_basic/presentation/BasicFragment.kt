@@ -8,28 +8,35 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.survivalcoding.network_apps.R
+import com.survivalcoding.network_apps.databinding.FragmentBasicBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BasicFragment : Fragment(R.layout.fragment_basic) {
+class BasicFragment : Fragment() {
+    private var _binding: FragmentBasicBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: BasicViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_basic, container, false)
+        _binding = FragmentBasicBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val resultTextView = view.findViewById<TextView>(R.id.result_text_view)
-
         viewModel.todo.observe(viewLifecycleOwner, { todo ->
-            resultTextView.text = todo.toString()
+            binding.resultTextView.text = todo.toString()
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

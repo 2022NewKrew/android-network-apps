@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.feature_basic.data
+package com.survivalcoding.network_apps.feature_basic.di
 
 import com.survivalcoding.network_apps.feature_basic.data.datasource.TodoDataSource
 import com.survivalcoding.network_apps.feature_basic.data.repository.TodoRepositoryImpl

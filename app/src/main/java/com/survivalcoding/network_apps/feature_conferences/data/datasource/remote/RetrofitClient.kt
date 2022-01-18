@@ -9,7 +9,7 @@ object RetrofitClient {
     private const val TIMEOUT_COUNT: Long = 10
 
     fun getClient(): Retrofit {
-        val baseUrl = "https://raw.githubusercontent.com/junsuk5≈"
+        val baseUrl = "https://raw.githubusercontent.com"
 
         val client = OkHttpClient.Builder()
             .connectTimeout(TIMEOUT_COUNT, TimeUnit.SECONDS)

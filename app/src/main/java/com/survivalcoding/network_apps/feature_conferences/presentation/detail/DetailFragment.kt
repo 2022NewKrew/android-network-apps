@@ -7,20 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
-import com.survivalcoding.network_apps.feature_conferences.data.datasource.local.LocalConferenceDataSource
 import com.survivalcoding.network_apps.feature_conferences.data.repository.ConferenceRepositoryImpl
 import com.survivalcoding.network_apps.feature_conferences.presentation.ConferencesViewModel
 import com.survivalcoding.network_apps.feature_conferences.presentation.ConferencesViewModelFactory
 import android.content.Intent
 import android.net.Uri
 import com.survivalcoding.network_apps.databinding.FragmentDetailBinding
+import com.survivalcoding.network_apps.feature_conferences.data.datasource.remote.RemoteConferenceDataSource
 
 class DetailFragment : Fragment() {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<ConferencesViewModel> {
-        ConferencesViewModelFactory(ConferenceRepositoryImpl(LocalConferenceDataSource()))
+        ConferencesViewModelFactory(ConferenceRepositoryImpl(RemoteConferenceDataSource()))
     }
 
     override fun onCreateView(

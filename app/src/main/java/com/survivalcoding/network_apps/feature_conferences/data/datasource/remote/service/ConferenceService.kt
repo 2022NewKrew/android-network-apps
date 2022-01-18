@@ -4,6 +4,6 @@ import com.survivalcoding.network_apps.feature_conferences.domain.model.Conferen
 import retrofit2.http.GET
 
 interface ConferenceService {
-    @GET("/mock_json/main/conferences.json")
+    @GET("/junsuk5/mock_json/main/conferences.json")
     suspend fun getConferenceList(): List<Conference>
 }

@@ -12,7 +12,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.databinding.FragmentConferencesBinding
-import com.survivalcoding.network_apps.feature_conferences.data.datasource.local.LocalConferenceDataSource
+import com.survivalcoding.network_apps.feature_conferences.data.datasource.remote.RemoteConferenceDataSource
 import com.survivalcoding.network_apps.feature_conferences.data.repository.ConferenceRepositoryImpl
 import com.survivalcoding.network_apps.feature_conferences.presentation.ConferencesViewModel
 import com.survivalcoding.network_apps.feature_conferences.presentation.ConferencesViewModelFactory
@@ -23,7 +23,7 @@ class ConferencesFragment : Fragment() {
     private var _binding: FragmentConferencesBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<ConferencesViewModel> {
-        ConferencesViewModelFactory(ConferenceRepositoryImpl(LocalConferenceDataSource()))
+        ConferencesViewModelFactory(ConferenceRepositoryImpl(RemoteConferenceDataSource()))
     }
     private val adapter by lazy {
         ConferenceListAdapter { conference ->

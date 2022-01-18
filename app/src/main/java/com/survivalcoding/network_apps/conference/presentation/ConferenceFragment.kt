@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.network_apps.MyApp
@@ -17,11 +17,22 @@ import com.survivalcoding.network_apps.conference.presentation.adapter.Conferenc
 import com.survivalcoding.network_apps.conference.presentation.util.ConferenceViewModelProvider
 
 class ConferenceFragment : Fragment(R.layout.fragment_conference) {
+    companion object {
+        val REQUEST_KEY = "REQUEST_KEY"
+        val BUNDLE_KEY = "BUNDLE_KEY"
+    }
+
     private val viewModel by viewModels<ConferenceViewModel> {
         ConferenceViewModelProvider((requireActivity().application as MyApp).conferenceRepository)
     }
+    private val adapter = ConferenceListAdapter {
+        setFragmentResult(REQUEST_KEY, bundleOf(BUNDLE_KEY to it))
+        parentFragmentManager.commit {
+            replace<DetailFragment>(R.id.fragment_container_view)
+            addToBackStack(null)
+        }
+    }
 
-    private val adapter = ConferenceListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

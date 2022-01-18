@@ -45,11 +45,11 @@
         android:id="@+id/detail_link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
         android:layout_below="@id/detail_range"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        />
+        android:autoLink="web"
+        android:text="@string/hello_blank_fragment" />
 
 
 

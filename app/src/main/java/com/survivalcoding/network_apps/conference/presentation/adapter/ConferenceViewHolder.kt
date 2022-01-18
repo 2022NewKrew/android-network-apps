@@ -9,9 +9,12 @@ import com.survivalcoding.network_apps.databinding.ItemConferenceBinding
 class ConferenceViewHolder(private val binding: ItemConferenceBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: ConferenceInfo) {
+    fun bind(item: ConferenceInfo, onClicked: (ConferenceInfo) -> Unit) {
         binding.name.text = item.name
         binding.location.text = item.location
+        binding.root.setOnClickListener {
+            onClicked(item)
+        }
     }
 
     companion object {

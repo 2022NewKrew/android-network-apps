@@ -1,14 +1,14 @@
 package com.example.presentation.conferences
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.data.repository.ConferenceRepositoryImpl
 import com.example.domain.usecase.GetConferencesUseCase
 import com.example.presentation.App
+import com.example.presentation.LoadingPopUp
 import com.example.presentation.R
 import com.example.presentation.conferencedetail.ConferenceDetailFragment
 import com.example.presentation.conferences.adapter.ConferenceListAdapter
@@ -36,6 +36,10 @@ class ConferencesFragment : Fragment() {
         )[ConferencesViewModel::class.java]
     }
 
+    private val loadingPopUp: LoadingPopUp by lazy {
+        LoadingPopUp()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {}
@@ -52,8 +56,13 @@ class ConferencesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.conferenceList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        viewModel.conferenceUiState.observe(viewLifecycleOwner) {
+            if (it.isLoading) {
+                loadingPopUp.show(parentFragmentManager, "loading_popup")
+            } else {
+                loadingPopUp.dismiss()
+                adapter.submitList(it.conferenceList)
+            }
         }
     }
 

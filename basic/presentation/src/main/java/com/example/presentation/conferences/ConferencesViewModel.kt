@@ -8,18 +8,27 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ConferencesViewModel(private val getConferencesUseCase: GetConferencesUseCase) : ViewModel() {
-    private val _conferencesList = MutableLiveData<List<Conference>>()
-    val conferenceList: LiveData<List<Conference>> = _conferencesList
+    private val _conferenceUiState = MutableLiveData(ConferencesUiState(listOf(), true))
+    val conferenceUiState: LiveData<ConferencesUiState> = _conferenceUiState
 
     init {
+        loadConferences()
+    }
+
+    private fun loadConferences() {
         viewModelScope.launch {
             val newConferencesList = withContext(Dispatchers.IO) {
                 getConferencesUseCase.invoke()
             }
-            _conferencesList.value = newConferencesList
+            _conferenceUiState.value = ConferencesUiState(newConferencesList, false)
         }
     }
 }
+
+class ConferencesUiState(
+    val conferenceList: List<Conference>,
+    val isLoading: Boolean
+)
 
 @Suppress("UNCHECKED_CAST")
 class ConferencesViewModelFactory(private val getConferencesUseCase: GetConferencesUseCase) :

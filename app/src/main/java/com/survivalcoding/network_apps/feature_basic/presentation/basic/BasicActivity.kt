@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.feature_basic.presentation
+package com.survivalcoding.network_apps.feature_basic.presentation.basic
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -4,9 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.ListView
 import com.survivalcoding.network_apps.databinding.ActivityMainBinding
-import com.survivalcoding.network_apps.feature_basic.presentation.BasicActivity
+import com.survivalcoding.network_apps.feature_basic.presentation.basic.BasicActivity
+import com.survivalcoding.network_apps.feature_basic.presentation.conference.ConferenceActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this@MainActivity, BasicActivity::class.java))
                 },
                 AppInfo("컨퍼런스 앱 1") {
-
+                    startActivity(Intent(this@MainActivity, ConferenceActivity::class.java))
                 },
                 AppInfo("Paging") {
 

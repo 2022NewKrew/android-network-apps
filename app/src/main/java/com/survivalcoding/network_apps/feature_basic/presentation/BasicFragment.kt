@@ -8,12 +8,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.survivalcoding.network_apps.R
-import com.survivalcoding.network_apps.feature_basic.presentation.util.BasicViewModelProvider
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BasicFragment : Fragment(R.layout.fragment_basic) {
-    private val viewModel by viewModels<BasicViewModel> {
-        BasicViewModelProvider()
-    }
+    private val viewModel: BasicViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,5 +1,6 @@
 package com.survivalcoding.network_apps.conferences.presentation.info
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import com.google.android.material.snackbar.Snackbar
 import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.conferences.domain.model.Conference
 import com.survivalcoding.network_apps.conferences.presentation.list.ConferencesFragment
@@ -48,7 +50,12 @@ class InformationFragment : Fragment() {
 //            val url = conference.link
 //            val intent = Intent(Intent.ACTION_VIEW)
 //            intent.data = Uri.parse(url)
-//            startActivity(intent)
+//            try {
+//                startActivity(intent)
+//            } catch (e: ActivityNotFoundException) {
+//                Snackbar.make(binding.root, "실행할 수 있는 앱 없음.", Snackbar.LENGTH_SHORT)
+//                    .show()
+//            }
 //        }
     }
 }

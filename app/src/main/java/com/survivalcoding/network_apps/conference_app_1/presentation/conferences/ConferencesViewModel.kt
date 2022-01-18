@@ -1,22 +1,20 @@
 package com.survivalcoding.network_apps.conference_app_1.presentation.conferences
 
-import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.survivalcoding.network_apps.conference_app_1.domain.repository.ConferenceRepository
 import com.survivalcoding.network_apps.conference_app_1.domain.usecase.GetConferencesUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.net.SocketException
-import java.net.UnknownHostException
 
 class ListViewModel(
     private val getConferencesUseCase: GetConferencesUseCase,
-    private val application: Application
 ) : ViewModel() {
     private var _state = MutableLiveData(ConferencesState())
     val state: LiveData<ConferencesState> = _state
+
+    private var _exception: MutableLiveData<Throwable?> = MutableLiveData()
+    val exception: LiveData<Throwable?> = _exception
+
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         getErrorMessage(throwable)
         _state.value = _state.value!!.copy(isLoading = false)
@@ -31,38 +29,23 @@ class ListViewModel(
                     isLoading = false
                 )
             )
+            _exception.value = null
         }
     }
 
     private fun getErrorMessage(throwable: Throwable) {
         throwable.printStackTrace()
-        when (throwable) {
-            is SocketException -> Toast.makeText(
-                application,
-                "Socket Excpetion",
-                Toast.LENGTH_SHORT
-            ).show()
-            is HttpException -> Toast.makeText(application, "Parse Error", Toast.LENGTH_SHORT)
-                .show()
-            is UnknownHostException -> Toast.makeText(
-                application,
-                "Wrong Connection",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+        _exception.value = throwable
     }
 }
 
-
 class ListViewModelFactory(
-    private val application: Application,
     private val conferenceRepository: ConferenceRepository,
-) : ViewModelProvider.AndroidViewModelFactory(application) {
+) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ListViewModel::class.java))
             return ListViewModel(
                 getConferencesUseCase = GetConferencesUseCase(conferenceRepository),
-                application = application
             ) as T
         else throw IllegalArgumentException()
     }

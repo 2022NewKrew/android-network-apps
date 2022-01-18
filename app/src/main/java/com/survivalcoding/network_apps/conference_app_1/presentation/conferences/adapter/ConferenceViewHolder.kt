@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.conference_app_1.presentation.list.adapter
+package com.survivalcoding.network_apps.conference_app_1.presentation.conferences.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

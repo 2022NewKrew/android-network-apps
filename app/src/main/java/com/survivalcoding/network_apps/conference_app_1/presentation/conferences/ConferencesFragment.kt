@@ -1,10 +1,11 @@
-package com.survivalcoding.network_apps.conference_app_1.presentation.list
+package com.survivalcoding.network_apps.conference_app_1.presentation.conferences
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,12 +13,12 @@ import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.conference_app_1.data.datasource.ConferenceRemoteDataSource
 import com.survivalcoding.network_apps.conference_app_1.data.network.ConferencesApi
 import com.survivalcoding.network_apps.conference_app_1.data.repository.ConferenceRepositoryImpl
+import com.survivalcoding.network_apps.conference_app_1.presentation.conferences.adapter.ConferenceAdapter
 import com.survivalcoding.network_apps.conference_app_1.presentation.detail.DetailFragment
-import com.survivalcoding.network_apps.conference_app_1.presentation.list.adapter.ConferenceAdapter
-import com.survivalcoding.network_apps.databinding.FragmentListBinding
+import com.survivalcoding.network_apps.databinding.FragmentConferencesBinding
 
-class ListFragment : Fragment() {
-    private var _binding: FragmentListBinding? = null
+class ConferencesFragment : Fragment() {
+    private var _binding: FragmentConferencesBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by activityViewModels<ListViewModel> {
@@ -31,8 +32,8 @@ class ListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentListBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentConferencesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -54,8 +55,11 @@ class ListFragment : Fragment() {
         })
         recyclerView.adapter = adapter
 
-        viewModel.conference.observe(this) {
-            adapter.submitList(it)
+        val progressBar = binding.progressBar2
+        viewModel.state.observe(this) {
+            progressBar.isVisible = it.isLoading
+            adapter.submitList(it.conferences)
+
         }
     }
 

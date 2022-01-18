@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.survivalcoding.network_apps.conference_app_1.domain.model.Conference
-import com.survivalcoding.network_apps.conference_app_1.presentation.list.ListFragment.Companion.CLICK
+import com.survivalcoding.network_apps.conference_app_1.presentation.conferences.ConferencesFragment.Companion.CLICK
 
 class DetailViewModel(
     savedStateHandle: SavedStateHandle

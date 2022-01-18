@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 class ListViewModel(
     private val conferenceRepository: ConferenceRepository,
     application: Application
-) : AndroidViewModel(application) {
+) : ViewModel() {
     private var _conferences = MutableLiveData<List<Conference>>()
     val conference: LiveData<List<Conference>> = _conferences
 

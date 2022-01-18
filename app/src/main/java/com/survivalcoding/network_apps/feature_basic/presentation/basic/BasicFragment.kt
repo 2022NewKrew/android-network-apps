@@ -1,19 +1,17 @@
-package com.survivalcoding.network_apps.feature_basic.presentation
+package com.survivalcoding.network_apps.feature_basic.presentation.basic
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.survivalcoding.network_apps.R
-import com.survivalcoding.network_apps.databinding.FragmentBasicBinding
+import com.survivalcoding.network_apps.databinding.BasicFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class BasicFragment : Fragment() {
-    private var _binding: FragmentBasicBinding? = null
+    private var _binding: BasicFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: BasicViewModel by viewModels()
 
@@ -22,7 +20,7 @@ class BasicFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentBasicBinding.inflate(inflater, container, false)
+        _binding = BasicFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -4,8 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!--모든 외부 앱 접근 가능하도록 - 권장하지 않는다고 한다.
+    다른 앱에 접근할 이유가 없는데 접근하려고 하면 거부 당할 가능성이 높다고 한다.
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
     -->
+    <queries>
+        <package android:name="com.example.std4"/>
+    </queries>
     <application
         android:name=".MyApp"
         android:allowBackup="true"

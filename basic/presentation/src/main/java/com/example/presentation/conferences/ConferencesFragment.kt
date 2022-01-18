@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.data.repository.ConferenceRepositoryImpl
 import com.example.domain.usecase.GetConferencesUseCase
 import com.example.presentation.App
+import com.example.presentation.R
+import com.example.presentation.conferencedetail.ConferenceDetailFragment
 import com.example.presentation.conferences.adapter.ConferenceListAdapter
 import com.example.presentation.databinding.FragmentConferencesBinding
 
@@ -19,7 +21,12 @@ class ConferencesFragment : Fragment() {
     }
 
     private val adapter: ConferenceListAdapter by lazy {
-        ConferenceListAdapter()
+        ConferenceListAdapter {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container_view, ConferenceDetailFragment.newInstance(it))
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private val viewModel: ConferencesViewModel by lazy {

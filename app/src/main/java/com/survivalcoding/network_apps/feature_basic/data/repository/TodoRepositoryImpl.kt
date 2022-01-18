@@ -8,7 +8,7 @@ class TodoRepositoryImpl(
     private val localDataSource: TodoRemoteDataSource
 ) : TodoRepository {
 
-    override suspend fun getTodoById(id: Int): Todo {
+    override suspend fun getTodoById(id: Int): Result<Todo> {
         return localDataSource.getData(id)
     }
 }

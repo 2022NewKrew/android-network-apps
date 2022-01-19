@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Network_apps">
         <activity
+            android:name=".feature_conferences.presentation.ConferencesActivity"
+            android:exported="false"
+            android:label="Conferences" />
+        <activity
             android:name=".feature_basic.presentation.BasicActivity"
             android:exported="false"
             android:label="Basic" />

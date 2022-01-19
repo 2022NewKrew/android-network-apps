@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">network_apps</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="go_to_official_website">Go to official website</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -14,6 +14,9 @@ import android.content.Intent
 import android.net.Uri
 import com.survivalcoding.network_apps.databinding.FragmentDetailBinding
 import com.survivalcoding.network_apps.feature_conferences.data.datasource.remote.RemoteConferenceDataSource
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DetailFragment : Fragment() {
 
@@ -61,30 +64,13 @@ class DetailFragment : Fragment() {
     }
 
     private fun getDurationStr(start: String?, end: String?): String {
-        if (start == null || end == null) return ""
-
-        var result = ""
-        val startDate = start.split("-")
-        result += ("${getMonth(startDate[1].toInt())} ${startDate[2]}, ${startDate[0]} - ")
-        val endDate = end.split("-")
-        result += ("${getMonth(endDate[1].toInt())} ${endDate[2]}, ${endDate[0]}")
-        return result
-    }
-
-    private fun getMonth(month: Int): String {
-        return when (month) {
-            1 -> "Jan"
-            2 -> "Feb"
-            3 -> "Mar"
-            4 -> "Apr"
-            5 -> "May"
-            6 -> "Jun"
-            7 -> "Jul"
-            8 -> "Aug"
-            9 -> "Sep"
-            10 -> "Oct"
-            11 -> "Nov"
-            else -> "Dec"
+        return try {
+            val strFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+            "${
+                DateFormat.getDateInstance(DateFormat.MEDIUM).format(strFormat.parse(start))
+            } - ${DateFormat.getDateInstance(DateFormat.MEDIUM).format(strFormat.parse(end))}"
+        } catch (e: Exception) {
+            ""
         }
     }
 }

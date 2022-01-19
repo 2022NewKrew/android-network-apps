@@ -1,0 +1,56 @@
+package com.survivalcoding.network_apps.feature_paging.presentation
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.survivalcoding.network_apps.MyApp
+import com.survivalcoding.network_apps.R
+import com.survivalcoding.network_apps.feature_paging.presentation.adapter.PostInfoListAdapter
+import com.survivalcoding.network_apps.feature_paging.presentation.util.PostInfoViewModelProvider
+
+class PagingFragment : Fragment(R.layout.fragment_paging) {
+    companion object {
+        val REQUEST_KEY = "REQUEST_KEY"
+        val BUNDLE_KEY = "BUNDLE_KEY"
+    }
+
+    private val viewModel by viewModels<PostInfoViewModel> {
+        PostInfoViewModelProvider(
+            (requireActivity().application as MyApp).postRepository,
+            (requireActivity().application as MyApp).userRepository
+        )
+    }
+    private val adapter = PostInfoListAdapter()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_conference, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.paging_recyclerview)
+
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+
+        viewModel.state.observe(viewLifecycleOwner, { state ->
+            progressBar.isVisible = state.isLoading
+            state.post?.let { items ->
+                adapter.submitList(items)
+            }
+        })
+    }
+}

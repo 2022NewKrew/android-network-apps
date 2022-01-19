@@ -1,6 +1,6 @@
 package com.survivalcoding.network_apps.feature_basic.data.datasource.remote
 
-import com.survivalcoding.network_apps.feature_basic.data.datasource.remote.TodoURL.Companion.TODO_URL
+import com.survivalcoding.network_apps.feature_basic.data.datasource.remote.TodoURL.TODO_URL
 import com.survivalcoding.network_apps.feature_basic.domain.model.TodoItem
 import retrofit2.Response
 import retrofit2.http.GET

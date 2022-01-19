@@ -6,6 +6,9 @@ import com.survivalcoding.network_apps.feature_basic.data.datasource.TodoDataSou
 import com.survivalcoding.network_apps.feature_basic.data.repository.TodoRepositoryImpl
 import com.survivalcoding.network_apps.feature_conference.domain.repository.ConferenceRepository
 import com.survivalcoding.network_apps.feature_basic.domain.repository.TodoRepository
+import com.survivalcoding.network_apps.feature_paging.data.datasource.PostDataSource
+import com.survivalcoding.network_apps.feature_paging.data.repository.PostRepositoryImpl
+import com.survivalcoding.network_apps.feature_paging.domain.repository.PostRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,4 +25,8 @@ object RepositoryModule {
     @Provides
     @ViewModelScoped
     fun provideConferenceRepository(dataSource: ConferenceDataSource): ConferenceRepository = ConferenceRepositoryImpl(dataSource)
+
+    @Provides
+    @ViewModelScoped
+    fun providePostRepository(dataSource: PostDataSource): PostRepository = PostRepositoryImpl(dataSource)
 }

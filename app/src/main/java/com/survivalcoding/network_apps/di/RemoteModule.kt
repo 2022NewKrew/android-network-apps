@@ -4,6 +4,8 @@ import com.survivalcoding.network_apps.feature_conference.data.datasource.Confer
 import com.survivalcoding.network_apps.feature_conference.data.datasource.ConferenceURL
 import com.survivalcoding.network_apps.feature_basic.data.datasource.remote.TodoService
 import com.survivalcoding.network_apps.feature_basic.data.datasource.remote.TodoURL
+import com.survivalcoding.network_apps.feature_paging.data.datasource.PostService
+import com.survivalcoding.network_apps.feature_paging.data.datasource.PostURL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +25,7 @@ object RemoteModule {
     @Provides
     fun provideHttpClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        interceptor.level = HttpLoggingInterceptor.Level.NONE
         return OkHttpClient.Builder().readTimeout(9, TimeUnit.SECONDS)
             .connectTimeout(9, TimeUnit.SECONDS).addInterceptor(interceptor)
             .build()
@@ -65,6 +67,22 @@ object RemoteModule {
             .build()
     }
 
+    @Qualifier
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class PostRetrofit
+
+    @Singleton
+    @Provides
+    @PostRetrofit
+    fun providePostRetrofit(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder().baseUrl(PostURL.BASE_URL).client(okHttpClient)
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Singleton
     @Provides
     fun provideTodoService(@TodoRetrofit retrofit: Retrofit): TodoService =
@@ -74,5 +92,10 @@ object RemoteModule {
     @Provides
     fun provideConferenceService(@ConferenceRetrofit retrofit: Retrofit): ConferenceService =
         retrofit.create(ConferenceService::class.java)
+
+    @Singleton
+    @Provides
+    fun providePostService(@PostRetrofit retrofit: Retrofit): PostService =
+        retrofit.create(PostService::class.java)
 
 }

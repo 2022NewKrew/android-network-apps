@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import com.example.paging.presentation.PostListActivity
 import com.example.presentation.BasicMainActivity
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
                 },
                 AppInfo("Paging") {
-
+                    startActivity(Intent(this@MainActivity, PostListActivity::class.java))
                 },
             )
 

@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.survivalcoding.network_apps.databinding.ConferenceListItemBinding
 import com.survivalcoding.network_apps.feature_basic.domain.model.ConferenceItem
-import com.survivalcoding.network_apps.feature_basic.presentation.conference.ConferenceItemViewHolder
 
 class ConferenceListAdapter(private val onLinkClicked: (String) -> Any) :
     ListAdapter<ConferenceItem, ConferenceItemViewHolder>(ConferenceDiffUtilCallback) {

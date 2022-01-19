@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.feature_basic.presentation.conference
+package com.survivalcoding.network_apps.feature_basic.presentation.conference.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.network_apps.databinding.ConferenceListItemBinding

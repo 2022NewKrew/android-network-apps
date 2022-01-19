@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.feature_basic.data.di
+package com.survivalcoding.network_apps.feature_basic.di
 
 import com.survivalcoding.network_apps.feature_basic.data.conference.datasource.ConferenceService
 import com.survivalcoding.network_apps.feature_basic.data.conference.datasource.ConferenceURL

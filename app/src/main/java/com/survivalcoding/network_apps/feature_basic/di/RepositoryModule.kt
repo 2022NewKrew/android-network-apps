@@ -2,7 +2,6 @@ package com.survivalcoding.network_apps.feature_basic.di
 
 import com.survivalcoding.network_apps.feature_basic.data.conference.datasource.ConferenceDataSource
 import com.survivalcoding.network_apps.feature_basic.data.conference.repository.ConferenceRepositoryImpl
-import com.survivalcoding.network_apps.feature_basic.data.todo.TodoDataSourceModule
 import com.survivalcoding.network_apps.feature_basic.data.todo.datasource.TodoDataSource
 import com.survivalcoding.network_apps.feature_basic.data.todo.repository.TodoRepositoryImpl
 import com.survivalcoding.network_apps.feature_basic.domain.repository.ConferenceRepository

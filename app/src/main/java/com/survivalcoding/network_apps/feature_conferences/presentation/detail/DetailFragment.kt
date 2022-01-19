@@ -35,13 +35,13 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // actionBar 설정
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
-            viewModel.conferenceSelected.value?.name
+            viewModel.state.value?.conference?.name
 
-        // 컨퍼런스 정보 표시
-        viewModel.conferenceSelected.observe(this) { conference ->
-            binding.detailTvLocation.text = conference?.location
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            // 컨퍼런스 정보 표시
+            binding.detailTvLocation.text = state.conference?.location
             binding.detailTvDuration.text =
-                getDurationStr(conference?.start, conference?.end)
+                getDurationStr(state.conference?.start, state.conference?.end)
         }
 
         // 링크 클릭 시 웹사이트로 이동
@@ -49,7 +49,7 @@ class DetailFragment : Fragment() {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(viewModel.conferenceSelected.value?.link)
+                    Uri.parse(viewModel.state.value?.conference?.link)
                 )
             )
         }

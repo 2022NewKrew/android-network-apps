@@ -56,14 +56,12 @@ class ConferencesFragment : Fragment() {
         // recyclerView 설정
         binding.conferencesRecyclerView.adapter = adapter
 
-        // conference list 업데이트 관찰
-        viewModel.conferences.observe(this) { list ->
-            adapter.submitList(list)
-        }
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            // conference list 업데이트 관찰
+            adapter.submitList(state.conferences)
 
-        // progressBar 설정
-        viewModel.isLoading.observe(this) { isLoading ->
-            binding.conferencesProgressBar.isVisible = isLoading
+            // progressBar 설정
+            binding.conferencesProgressBar.isVisible = state.isLoading
         }
     }
 

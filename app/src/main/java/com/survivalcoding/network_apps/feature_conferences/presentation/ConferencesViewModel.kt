@@ -7,26 +7,22 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ConferencesViewModel(private val repository: ConferenceRepository) : ViewModel() {
-    private val _conferences = MutableLiveData<List<Conference>>()
-    val conferences: LiveData<List<Conference>> get() = _conferences
-    private val _isLoading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> get() = _isLoading
-    private val _conferenceSelected = MutableLiveData<Conference?>()
-    val conferenceSelected: LiveData<Conference?> get() = _conferenceSelected
+    private val _state = MutableLiveData(ConferencesState())
+    val state: LiveData<ConferencesState> get() = _state
 
     init {
         getConferenceList()
     }
 
     private fun getConferenceList() = viewModelScope.launch {
-        _isLoading.value = true
+        _state.value = state.value?.copy(isLoading = true)
         repository.getConferenceList().collect { list ->
-            _conferences.value = list
+            _state.value = state.value?.copy(conferences = list)
         }
-        _isLoading.value = false
+        _state.value = state.value?.copy(isLoading = false)
     }
 
     fun selectConference(conference: Conference?) {
-        _conferenceSelected.value = conference
+        _state.value = state.value?.copy(conference = conference)
     }
 }

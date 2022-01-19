@@ -1,18 +1,14 @@
-package com.survivalcoding.network_apps.conferences.presentation.info
+package com.survivalcoding.network_apps.feature_conferences.presentation.info
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import com.google.android.material.snackbar.Snackbar
 import com.survivalcoding.network_apps.R
-import com.survivalcoding.network_apps.conferences.domain.model.Conference
-import com.survivalcoding.network_apps.conferences.presentation.list.ConferencesFragment
+import com.survivalcoding.network_apps.feature_conferences.domain.model.Conference
+import com.survivalcoding.network_apps.feature_conferences.presentation.list.ConferencesFragment
 import com.survivalcoding.network_apps.databinding.FragmentInformationBinding
 
 class InformationFragment : Fragment() {
@@ -42,7 +38,7 @@ class InformationFragment : Fragment() {
         binding.tvConferenceInformationTitle.text = conference.name
         binding.tvConferenceInformationLocation.text = conference.location
 
-        val period = "${conference.start} ~ ${conference.end}"
+        val period = "${dateFormat(conference.start)} ~ ${dateFormat(conference.end)}"
         binding.tvConferenceInformationPeriod.text = period
 
         binding.tvConferenceInformationLink.text = conference.link
@@ -57,5 +53,30 @@ class InformationFragment : Fragment() {
 //                    .show()
 //            }
 //        }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
+    private fun dateFormat(date: String): String {
+        val split = date.split('-')
+        val month = when (split[1].toInt()) {
+            1 -> "Jan"
+            2 -> "Feb"
+            3 -> "Mar"
+            4 -> "Apr"
+            5 -> "May"
+            6 -> "Jun"
+            7 -> "Jul"
+            8 -> "Aug"
+            9 -> "Sep"
+            10 -> "Oct"
+            11 -> "Nov"
+            else -> "Dec"
+        }
+        val day = if (split[2].length >= 2) split[2] else "0${split[2]}"
+        return "$month $day, ${split[0]}"
     }
 }

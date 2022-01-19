@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.conferences.presentation
+package com.survivalcoding.network_apps.feature_conferences.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

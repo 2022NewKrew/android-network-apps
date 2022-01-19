@@ -1,10 +1,10 @@
-package com.survivalcoding.network_apps.conferences.presentation.util
+package com.survivalcoding.network_apps.feature_conferences.presentation.util
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.survivalcoding.network_apps.conferences.domain.repository.ConferenceRepository
-import com.survivalcoding.network_apps.conferences.domain.usecase.GetConferencesUseCase
-import com.survivalcoding.network_apps.conferences.presentation.list.ConferencesViewModel
+import com.survivalcoding.network_apps.feature_conferences.domain.repository.ConferenceRepository
+import com.survivalcoding.network_apps.feature_conferences.domain.usecase.GetConferencesUseCase
+import com.survivalcoding.network_apps.feature_conferences.presentation.list.ConferencesViewModel
 
 class ConferencesViewModelProvider(
     private val repository: ConferenceRepository

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".conferences.presentation.list.ConferencesFragment">
+    tools:context=".feature_conferences.presentation.list.ConferencesFragment">
 
     <TextView
         android:id="@+id/conferences_list_title"

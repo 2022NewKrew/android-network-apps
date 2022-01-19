@@ -1,20 +1,20 @@
-package com.survivalcoding.network_apps.conferences.presentation.list
+package com.survivalcoding.network_apps.feature_conferences.presentation.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.network_apps.App
 import com.survivalcoding.network_apps.R
-import com.survivalcoding.network_apps.conferences.presentation.info.InformationFragment
-import com.survivalcoding.network_apps.conferences.presentation.list.adapter.ConferenceAdapter
-import com.survivalcoding.network_apps.conferences.presentation.util.ConferencesViewModelProvider
 import com.survivalcoding.network_apps.databinding.FragmentConferencesBinding
+import com.survivalcoding.network_apps.feature_conferences.presentation.info.InformationFragment
+import com.survivalcoding.network_apps.feature_conferences.presentation.list.adapter.ConferenceAdapter
+import com.survivalcoding.network_apps.feature_conferences.presentation.util.ConferencesViewModelProvider
 
 class ConferencesFragment : Fragment() {
     private var _binding: FragmentConferencesBinding? = null
@@ -57,6 +57,10 @@ class ConferencesFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             binding.progressBar.isVisible = state.isLoading
             adapter.submitList(state.conferences)
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            error?.let { Toast.makeText(requireContext(), "$error", Toast.LENGTH_SHORT).show() }
         }
     }
 

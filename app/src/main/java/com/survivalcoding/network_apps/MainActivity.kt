@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import com.survivalcoding.network_apps.conferences.presentation.ConferencesActivity
+import com.survivalcoding.network_apps.feature_conferences.presentation.ConferencesActivity
 import com.survivalcoding.network_apps.feature_basic.presentation.BasicActivity
 
 class MainActivity : AppCompatActivity() {

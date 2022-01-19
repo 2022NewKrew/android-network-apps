@@ -1,6 +1,6 @@
-package com.survivalcoding.network_apps.conferences.data.datasource.remote.service
+package com.survivalcoding.network_apps.feature_conferences.data.datasource.remote.service
 
-import com.survivalcoding.network_apps.conferences.domain.model.Conference
+import com.survivalcoding.network_apps.feature_conferences.domain.model.Conference
 import retrofit2.http.GET
 
 interface ConferencesService {

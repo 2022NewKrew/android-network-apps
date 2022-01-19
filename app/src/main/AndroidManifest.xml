@@ -37,6 +37,7 @@
         </activity>
         <activity
             android:name=".feature_paging.presentation.PagingActivity"
+            android:label="paging"
             android:exported="true" />
     </application>
 

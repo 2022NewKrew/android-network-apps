@@ -14,6 +14,4 @@ class PostRepositoryImpl(private val postPagingDataSource: PostPagingDataSource)
     override fun getPosts(): Flow<PagingData<Post>> =
         Pager(PagingConfig(pageSize = 20),
             pagingSourceFactory = { postPagingDataSource }).flow
-
-
 }

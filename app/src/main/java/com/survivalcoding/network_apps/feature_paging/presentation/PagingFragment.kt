@@ -10,12 +10,19 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.LoadState
+import androidx.paging.LoadStates
+import androidx.paging.filter
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.survivalcoding.network_apps.MyApp
 import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.feature_paging.presentation.adapter.PostInfoListAdapter
 import com.survivalcoding.network_apps.feature_paging.presentation.util.PostInfoViewModelProvider
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -51,11 +58,18 @@ class PagingFragment : Fragment(R.layout.fragment_paging) {
         recyclerView.adapter = adapter
 
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.postPagingData.collectLatest {
-                    adapter.submitData(it)
+                adapter.addLoadStateListener {
+                    // 뭔가 찝찝함이 남아있다.
+                    if (it.refresh::class == LoadState.Error::class) {
+                        Snackbar.make(view, "ERROR!!!", Snackbar.LENGTH_SHORT).show()
+                    }
                 }
+                viewModel.postPagingData
+                    .collectLatest {
+                        adapter.submitData(it)
+                    }
             }
         }
     }

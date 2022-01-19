@@ -17,13 +17,8 @@ class PostInfoViewModel(
     private val _state = MutableLiveData(PostInfoState())
     val state: LiveData<PostInfoState> = _state
 
-    val posts = postRepository.getPosts().cachedIn(viewModelScope)
+    val postPagingData = postRepository.getPosts().cachedIn(viewModelScope)
 
-    init {
-        viewModelScope.launch {
-            _state.value = state.value!!.copy(isLoading = true)
-            _state.value = state.value!!.copy(isLoading = false)
-        }
-    }
+
 
 }

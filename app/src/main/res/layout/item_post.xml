@@ -48,7 +48,10 @@
                 android:layout_marginTop="5dp"
                 android:contentDescription="content"
                 android:gravity="center"
-                tools:text="post_content" />
+                tools:text="post_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                />
 
 
         </RelativeLayout>

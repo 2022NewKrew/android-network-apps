@@ -12,6 +12,10 @@ class PostInfoViewHolder(private val binding: ItemPostBinding) :
     fun bind(item: Post) {
         binding.postName.text = item.title
         binding.postContent.text = item.body
+        binding.postContent.setOnClickListener {
+            binding.postContent.maxLines =
+                if (binding.postContent.maxLines == 1) 50 else 1
+        }
     }
 
     companion object {

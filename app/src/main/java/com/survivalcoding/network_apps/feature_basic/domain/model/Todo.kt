@@ -6,3 +6,11 @@ data class Todo(
     val title: String,
     val userId: Int
 )
+
+fun emptyTodo(): Todo =
+    Todo(
+        id = 0,
+        title = "",
+        userId = 0,
+        completed = false
+    )

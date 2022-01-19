@@ -1,6 +1,7 @@
 package com.survivalcoding.network_apps.feature_basic.presentation
 
 import androidx.lifecycle.*
+import com.survivalcoding.network_apps.feature_basic.core.Result
 import com.survivalcoding.network_apps.feature_basic.domain.repository.TodoRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -21,18 +22,17 @@ class BasicViewModel(
         viewModelScope.launch {
             _state.value = state.value!!.copy(isLoading = true)
 
-            val result = todoRepository.getTodoById(1)
-
-            if (result.isSuccess) {
-                result.getOrNull()?.let { todo ->
+            when (val result = todoRepository.getTodoById(1)) {
+                is Result.Success -> {
                     _state.value = state.value!!.copy(
-                        todo = todo,
+                        todo = result.data,
                         isLoading = false
                     )
                 }
-            } else {
-                _state.value = state.value!!.copy(isLoading = false)
-                _event.emit(UiEvent.ShowSnackBar(result.exceptionOrNull().toString()))
+                is Result.Error -> {
+                    _state.value = state.value!!.copy(isLoading = false)
+                    _event.emit(UiEvent.ShowSnackBar(result.message))
+                }
             }
         }
     }

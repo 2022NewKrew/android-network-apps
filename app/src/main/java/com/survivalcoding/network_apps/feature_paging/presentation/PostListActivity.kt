@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.survivalcoding.network_apps.databinding.ActivityPostListBinding
+import com.survivalcoding.network_apps.feature_paging.presentation.adpater.InfiniteScrollListener
 import com.survivalcoding.network_apps.feature_paging.presentation.adpater.PostListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -21,7 +22,11 @@ class PostListActivity : AppCompatActivity() {
     }
 
     private val adapter: PostListAdapter by lazy {
-        PostListAdapter()
+        PostListAdapter(5, object : InfiniteScrollListener {
+            override fun load() {
+                viewModel.loadNextPage(adapter.itemCount)
+            }
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

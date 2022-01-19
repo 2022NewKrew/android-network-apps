@@ -21,16 +21,20 @@ class PostListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var lastPage = FIRST_PAGE_INDEX
+    private var prevListItemCount = 0
 
     private val _postListUiState =
         MutableStateFlow(PostListUiState(listOf(), true))
     val postListUiState = _postListUiState.asStateFlow()
 
     init {
-        loadNextPage()
+        loadNextPage(0)
     }
 
-    fun loadNextPage() {
+    fun loadNextPage(itemCount: Int) {
+        if (0 < prevListItemCount && prevListItemCount == itemCount) return
+        prevListItemCount = itemCount
+
         viewModelScope.launch {
             _postListUiState.value = _postListUiState.value.copy(isLoading = true)
 

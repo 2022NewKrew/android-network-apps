@@ -8,12 +8,18 @@ import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.network_apps.MyApp
 import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.feature_paging.presentation.adapter.PostInfoListAdapter
 import com.survivalcoding.network_apps.feature_paging.presentation.util.PostInfoViewModelProvider
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class PagingFragment : Fragment(R.layout.fragment_paging) {
     companion object {
@@ -34,7 +40,7 @@ class PagingFragment : Fragment(R.layout.fragment_paging) {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_conference, container, false)
+        return inflater.inflate(R.layout.fragment_paging, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,11 +52,13 @@ class PagingFragment : Fragment(R.layout.fragment_paging) {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        viewModel.state.observe(viewLifecycleOwner, { state ->
-            progressBar.isVisible = state.isLoading
-            state.post?.let { items ->
-                adapter.submitList(items)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.posts.collectLatest {
+                    adapter.submitData(it)
+                }
             }
-        })
+        }
     }
 }

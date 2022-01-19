@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface JsonService {
 
     @GET("/posts")
-    suspend fun getPosts(@Query("_page") page: Int, @Query("_limit") limit: Int = 20): List<Post>
+    suspend fun getPosts(@Query("_page") page: Int, @Query("_limit") pageSize: Int): List<Post>
 
     @GET("/users/{userId}")
     suspend fun getUser(@Query("userId") userId: Int): UserEntity?

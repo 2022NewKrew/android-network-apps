@@ -9,7 +9,7 @@ import com.survivalcoding.network_apps.feature_basic.data.datasource.network.ser
 import com.survivalcoding.network_apps.feature_basic.data.repository.RemoteTodoRepositoryImpl
 import com.survivalcoding.network_apps.feature_basic.domain.repository.TodoRepository
 import com.survivalcoding.network_apps.feature_conference.data.repository.ConferenceRepositoryImpl
-import com.survivalcoding.network_apps.feature_paging.data.datasource.network.PostDataSource
+import com.survivalcoding.network_apps.feature_paging.data.datasource.network.PostPagingDataSource
 import com.survivalcoding.network_apps.feature_paging.data.datasource.network.UserDataSource
 import com.survivalcoding.network_apps.feature_paging.data.datasource.network.service.JsonService
 import com.survivalcoding.network_apps.feature_paging.data.repositoryimpl.PostRepositoryImpl
@@ -25,7 +25,7 @@ class MyApp : Application() {
     private val jsonRetrofit: Retrofit by lazy {
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .baseUrl("https://jsonplaceholder.typicode.com")
             .build()
     }
 
@@ -53,7 +53,7 @@ class MyApp : Application() {
 
     val postRepository: PostRepository by lazy {
         PostRepositoryImpl(
-            PostDataSource(
+            PostPagingDataSource(
                 jsonRetrofit.create(JsonService::class.java)
             )
         )

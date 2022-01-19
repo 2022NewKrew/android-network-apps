@@ -59,5 +59,4 @@ class ConferenceFragment : Fragment(R.layout.fragment_conference) {
             }
         })
     }
-
 }

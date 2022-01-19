@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.survivalcoding.network_apps.R
-import com.survivalcoding.network_apps.paging.domain.model.Post
+import com.survivalcoding.network_apps.paging.domain.model.PostWithName
 
-class PostPagingDataAdapter : PagingDataAdapter<Post, PostViewHolder>(PostDiffItemCallback) {
+class PostPagingDataAdapter :
+    PagingDataAdapter<PostWithName, PostViewHolder>(PostDiffItemCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
@@ -19,12 +20,12 @@ class PostPagingDataAdapter : PagingDataAdapter<Post, PostViewHolder>(PostDiffIt
         item?.let { holder.bind(it) }
     }
 
-    object PostDiffItemCallback : DiffUtil.ItemCallback<Post>() {
-        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+    object PostDiffItemCallback : DiffUtil.ItemCallback<PostWithName>() {
+        override fun areItemsTheSame(oldItem: PostWithName, newItem: PostWithName): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+        override fun areContentsTheSame(oldItem: PostWithName, newItem: PostWithName): Boolean {
             return oldItem == newItem
         }
     }

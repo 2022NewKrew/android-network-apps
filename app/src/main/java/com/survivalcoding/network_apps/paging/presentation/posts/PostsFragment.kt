@@ -16,8 +16,6 @@ import com.survivalcoding.network_apps.paging.data.datasource.remote.PostRemoteD
 import com.survivalcoding.network_apps.paging.data.datasource.remote.RetrofitClient
 import com.survivalcoding.network_apps.paging.data.repository.PostRepositoryImpl
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class PostsFragment : Fragment() {
@@ -51,7 +49,8 @@ class PostsFragment : Fragment() {
             footer = PostsLoadStateAdapter { pagingAdapter.retry() }
         )
         pagingAdapter.addLoadStateListener { loadState ->
-            val isListEmpty = loadState.refresh is LoadState.NotLoading && pagingAdapter.itemCount == 0
+            val isListEmpty =
+                loadState.refresh is LoadState.NotLoading && pagingAdapter.itemCount == 0
             binding.emptyList.isVisible = isListEmpty
 
             binding.recylcerView.isVisible = loadState.source.refresh is LoadState.NotLoading

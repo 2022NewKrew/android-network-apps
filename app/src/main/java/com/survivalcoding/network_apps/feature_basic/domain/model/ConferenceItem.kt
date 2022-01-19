@@ -12,5 +12,5 @@ data class ConferenceItem(
     val end: String,
     val location: String,
     @SerializedName("cocoa-only")
-    val cocoa_only: Boolean = false
+    val cocoaOnly: Boolean = false
 ) : Parcelable

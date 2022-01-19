@@ -5,8 +5,9 @@ import com.example.paging.domain.model.Post
 import com.example.paging.domain.model.User
 import com.example.paging.domain.repository.JsonPlaceholderRepository
 import retrofit2.HttpException
+import javax.inject.Inject
 
-class JsonPlaceholderRepositoryImpl constructor(private val jsonPlaceHolderDataSource: JsonPlaceHolderDataSource) :
+class JsonPlaceholderRepositoryImpl @Inject constructor(private val jsonPlaceHolderDataSource: JsonPlaceHolderDataSource) :
     JsonPlaceholderRepository {
     override suspend fun getPosts(page: Int): List<Post> {
         val response = jsonPlaceHolderDataSource.getPosts(page)

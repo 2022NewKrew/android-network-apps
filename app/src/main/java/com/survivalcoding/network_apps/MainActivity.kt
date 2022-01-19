@@ -45,7 +45,5 @@ data class AppInfo(
     val name: String,
     val navigateTo: () -> Unit,
 ) {
-    override fun toString(): String {
-        return name
-    }
+    override fun toString() = name
 }

@@ -1,6 +1,7 @@
-package com.survivalcoding.network_apps.feature_paging.data.datasource
+package com.survivalcoding.network_apps.feature_paging.data.repository
 
 import android.util.Log
+import com.survivalcoding.network_apps.feature_paging.domain.repository.PostRepository
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
@@ -11,14 +12,14 @@ import org.junit.Test
 import javax.inject.Inject
 
 @HiltAndroidTest
-class PostDataSourceTest {
+class PostRepositoryImplTest {
     private val TAG = this::class.java.simpleName
 
     @get: Rule
     var hiltRule = HiltAndroidRule(this)
 
     @Inject
-    lateinit var postService: PostService
+    lateinit var postRepositoryImpl: PostRepository
 
     @Before
     fun setUp() {
@@ -28,18 +29,9 @@ class PostDataSourceTest {
     @Test
     fun getPosts() {
         runBlocking {
-            val posts = postService.getPosts(1).body()
-            Log.d(TAG, "getPosts: $posts")
-            assertNotEquals(0, posts?.size ?: 0)
-        }
-    }
-
-    @Test
-    fun getUserById() {
-        runBlocking {
-            val user = postService.getUserById(1).body()
-            Log.d(TAG, "getUserById: $user")
-            assertNotEquals(null, user)
+            val postItems = postRepositoryImpl.getPosts(1)
+            Log.d(TAG, "getPosts: $postItems")
+            assertNotEquals(0, postItems.size)
         }
     }
 }

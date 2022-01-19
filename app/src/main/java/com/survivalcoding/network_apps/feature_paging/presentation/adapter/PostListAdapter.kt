@@ -6,17 +6,14 @@ import androidx.paging.PagingDataAdapter
 import com.survivalcoding.network_apps.databinding.ItemPostBinding
 import com.survivalcoding.network_apps.feature_paging.domain.model.Post
 
-class PostListAdapter(
-    private val itemClickListener: (Post) -> Unit
-) : PagingDataAdapter<Post, PostViewHolder>(PostDiffItemCallback) {
-
+class PostListAdapter : PagingDataAdapter<Post, PostViewHolder>(PostDiffItemCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(
             ItemPostBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ), itemClickListener
+            )
         )
     }
 

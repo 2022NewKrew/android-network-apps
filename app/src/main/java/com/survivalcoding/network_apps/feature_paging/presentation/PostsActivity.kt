@@ -18,11 +18,7 @@ class PostsActivity : AppCompatActivity() {
         PostsViewModelFactory(PostRepositoryImpl(RemotePostDataSource()))
     }
     private val binding by lazy { ActivityPostsBinding.inflate(layoutInflater) }
-    private val adapter by lazy {
-        PostListAdapter { post ->
-            Toast.makeText(this, post.id.toString(), Toast.LENGTH_SHORT).show()
-        }
-    }
+    private val adapter by lazy { PostListAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

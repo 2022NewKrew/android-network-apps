@@ -1,6 +1,7 @@
 package com.survivalcoding.network_apps.feature_paging.di
 
 import com.survivalcoding.network_apps.BuildConfig
+import com.survivalcoding.network_apps.feature_paging.data.api.JsonPlaceHolderService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,12 +39,12 @@ class PagingNetworkModule {
 
     @Provides
     @Singleton
-    fun provideJsonPlaceholderService(okHttpClient: OkHttpClient): com.survivalcoding.network_apps.feature_paging.data.api.JsonPlaceHolderService {
+    fun provideJsonPlaceholderService(okHttpClient: OkHttpClient): JsonPlaceHolderService {
         return Retrofit.Builder().baseUrl(JSON_PLACEHOLDER_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
-            .create(com.survivalcoding.network_apps.feature_paging.data.api.JsonPlaceHolderService::class.java)
+            .create(JsonPlaceHolderService::class.java)
     }
 
     companion object {

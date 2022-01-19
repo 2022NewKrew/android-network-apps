@@ -12,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 interface RepositoryModule {
 
     @Binds
-    fun bindJsonPlaceholderRepository(jsonPlaceholderRepositoryImpl: com.survivalcoding.network_apps.feature_paging.data.repository.JsonPlaceholderRepositoryImpl): JsonPlaceholderRepository
+    fun bindJsonPlaceholderRepository(jsonPlaceholderRepositoryImpl: JsonPlaceholderRepositoryImpl): JsonPlaceholderRepository
 }

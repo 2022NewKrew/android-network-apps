@@ -10,7 +10,7 @@ class PostRemoteDataSource(private val postApi: PostApi) {
     fun getResultStream(): Flow<PagingData<Post>> {
         return Pager(config = PagingConfig(
             pageSize = NETWORK_PAGE_SIZE,
-            enablePlaceholders = false
+            enablePlaceholders = true
         ),
             pagingSourceFactory = { PostPagingSource(postApi) }
         ).flow

@@ -8,10 +8,14 @@ import androidx.paging.cachedIn
 import com.survivalcoding.network_apps.paging.data.repository.PostRepositoryImpl
 import com.survivalcoding.network_apps.paging.domain.model.Post
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMap
+import kotlinx.coroutines.flow.flatMapConcat
 
 class PostViewModel(repository: PostRepositoryImpl) : ViewModel() {
-    var posts: Flow<PagingData<Post>>? =
+    var posts: Flow<PagingData<Post>> =
         repository.getResultStream().cachedIn(viewModelScope)
+
 }
 
 class PostViewModelFactory(

@@ -1,10 +1,10 @@
 package com.survivalcoding.network_apps
 
 import android.app.Application
-import com.survivalcoding.network_apps.conference.data.datasource.network.RemoteCnfDataSource
-import com.survivalcoding.network_apps.conference.data.datasource.network.service.ConferenceService
-import com.survivalcoding.network_apps.conference.data.repository.ConferenceRepositoryImpl
-import com.survivalcoding.network_apps.conference.domain.repository.ConferenceRepository
+import com.survivalcoding.network_apps.feature_conference.data.datasource.network.RemoteCnfDataSource
+import com.survivalcoding.network_apps.feature_conference.data.datasource.network.service.ConferenceService
+import com.survivalcoding.network_apps.feature_conference.data.repository.ConferenceRepositoryImpl
+import com.survivalcoding.network_apps.feature_conference.domain.repository.ConferenceRepository
 import com.survivalcoding.network_apps.feature_basic.data.datasource.network.RemoteDataSource
 import com.survivalcoding.network_apps.feature_basic.data.datasource.network.service.SampleJsonService
 import com.survivalcoding.network_apps.feature_basic.data.repository.RemoteTodoRepositoryImpl

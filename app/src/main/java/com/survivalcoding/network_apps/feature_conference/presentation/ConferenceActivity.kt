@@ -1,7 +1,5 @@
-package com.survivalcoding.network_apps.conference.presentation
+package com.survivalcoding.network_apps.feature_conference.presentation
 
-import android.content.Intent
-import android.content.pm.ResolveInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.survivalcoding.network_apps.R

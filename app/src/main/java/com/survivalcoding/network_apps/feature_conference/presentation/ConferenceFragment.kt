@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.conference.presentation
+package com.survivalcoding.network_apps.feature_conference.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.network_apps.MyApp
 import com.survivalcoding.network_apps.R
-import com.survivalcoding.network_apps.conference.presentation.adapter.ConferenceListAdapter
-import com.survivalcoding.network_apps.conference.presentation.util.ConferenceViewModelProvider
+import com.survivalcoding.network_apps.feature_conference.presentation.adapter.ConferenceListAdapter
+import com.survivalcoding.network_apps.feature_conference.presentation.util.ConferenceViewModelProvider
 
 class ConferenceFragment : Fragment(R.layout.fragment_conference) {
     companion object {

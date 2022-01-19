@@ -1,8 +1,8 @@
-package com.survivalcoding.network_apps.conference.presentation.adapter
+package com.survivalcoding.network_apps.feature_conference.presentation.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.survivalcoding.network_apps.conference.domain.model.ConferenceInfo
+import com.survivalcoding.network_apps.feature_conference.domain.model.ConferenceInfo
 
 class ConferenceListAdapter(
     private val onClicked: (ConferenceInfo) -> Unit

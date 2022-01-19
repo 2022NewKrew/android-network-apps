@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.conference.presentation
+package com.survivalcoding.network_apps.feature_conference.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
-import com.survivalcoding.network_apps.R
-import com.survivalcoding.network_apps.conference.domain.model.ConferenceInfo
+import com.survivalcoding.network_apps.feature_conference.domain.model.ConferenceInfo
 import com.survivalcoding.network_apps.databinding.FragmentDetailBinding
 import android.content.Intent
 import android.net.Uri

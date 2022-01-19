@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.conference.domain.model
+package com.survivalcoding.network_apps.feature_conference.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

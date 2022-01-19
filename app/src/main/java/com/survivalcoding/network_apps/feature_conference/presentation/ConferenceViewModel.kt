@@ -1,7 +1,7 @@
-package com.survivalcoding.network_apps.conference.presentation
+package com.survivalcoding.network_apps.feature_conference.presentation
 
 import androidx.lifecycle.*
-import com.survivalcoding.network_apps.conference.domain.repository.ConferenceRepository
+import com.survivalcoding.network_apps.feature_conference.domain.repository.ConferenceRepository
 import kotlinx.coroutines.launch
 
 class ConferenceViewModel(

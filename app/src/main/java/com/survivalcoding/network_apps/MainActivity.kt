@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import com.survivalcoding.network_apps.feature_basic.presentation.BasicActivity
+import com.example.presentation.BasicMainActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<ListView>(R.id.app_list_view).apply {
             val apps = listOf(
                 AppInfo("Basic") {
-                    startActivity(Intent(this@MainActivity, BasicActivity::class.java))
+                    startActivity(Intent(this@MainActivity, BasicMainActivity::class.java))
                 },
                 AppInfo("컨퍼런스 앱 1") {
 

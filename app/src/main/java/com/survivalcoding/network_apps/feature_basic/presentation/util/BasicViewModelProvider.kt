@@ -8,7 +8,7 @@ import com.survivalcoding.network_apps.feature_basic.presentation.BasicViewModel
 
 class BasicViewModelProvider : ViewModelProvider.NewInstanceFactory() {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(BasicViewModel::class.java)) {
             return BasicViewModel(
                 TodoRepositoryImpl(LocalTodoDataSource())

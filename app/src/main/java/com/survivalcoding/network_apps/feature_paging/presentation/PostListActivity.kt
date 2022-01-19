@@ -1,9 +1,9 @@
 package com.survivalcoding.network_apps.feature_paging.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.example.paging.databinding.ActivityPostListBinding
+import androidx.appcompat.app.AppCompatActivity
+import com.survivalcoding.network_apps.databinding.ActivityPostListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

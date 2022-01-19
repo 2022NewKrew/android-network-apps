@@ -1,7 +1,6 @@
 package com.survivalcoding.network_apps.feature_paging.di
 
-import com.example.paging.BuildConfig
-import com.survivalcoding.network_apps.feature_paging.data.api.JsonPlaceHolderService
+import com.survivalcoding.network_apps.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

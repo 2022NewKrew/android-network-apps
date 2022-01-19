@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,6 +16,9 @@
             android:name=".feature_basic.presentation.BasicActivity"
             android:exported="false"
             android:label="Basic" />
+        <activity
+            android:name=".feature_paging.presentation.PostListActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

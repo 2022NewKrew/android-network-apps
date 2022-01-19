@@ -1,6 +1,6 @@
-package com.survivalcoding.network_apps.conference.data.datasource
+package com.survivalcoding.network_apps.feature_conference.data.datasource
 
-import com.survivalcoding.network_apps.conference.domain.model.ConferenceItem
+import com.survivalcoding.network_apps.feature_conference.domain.model.ConferenceItem
 import javax.inject.Inject
 import javax.inject.Singleton
 

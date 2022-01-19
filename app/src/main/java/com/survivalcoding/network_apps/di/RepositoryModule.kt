@@ -1,10 +1,10 @@
 package com.survivalcoding.network_apps.di
 
-import com.survivalcoding.network_apps.conference.data.datasource.ConferenceDataSource
-import com.survivalcoding.network_apps.conference.data.repository.ConferenceRepositoryImpl
+import com.survivalcoding.network_apps.feature_conference.data.datasource.ConferenceDataSource
+import com.survivalcoding.network_apps.feature_conference.data.repository.ConferenceRepositoryImpl
 import com.survivalcoding.network_apps.feature_basic.data.datasource.TodoDataSource
 import com.survivalcoding.network_apps.feature_basic.data.repository.TodoRepositoryImpl
-import com.survivalcoding.network_apps.conference.domain.repository.ConferenceRepository
+import com.survivalcoding.network_apps.feature_conference.domain.repository.ConferenceRepository
 import com.survivalcoding.network_apps.feature_basic.domain.repository.TodoRepository
 import dagger.Module
 import dagger.Provides

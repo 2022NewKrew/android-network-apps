@@ -1,7 +1,7 @@
 package com.survivalcoding.network_apps.di
 
-import com.survivalcoding.network_apps.conference.data.datasource.ConferenceService
-import com.survivalcoding.network_apps.conference.data.datasource.ConferenceURL
+import com.survivalcoding.network_apps.feature_conference.data.datasource.ConferenceService
+import com.survivalcoding.network_apps.feature_conference.data.datasource.ConferenceURL
 import com.survivalcoding.network_apps.feature_basic.data.datasource.remote.TodoService
 import com.survivalcoding.network_apps.feature_basic.data.datasource.remote.TodoURL
 import dagger.Module

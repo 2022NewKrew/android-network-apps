@@ -1,8 +1,8 @@
-package com.survivalcoding.network_apps.conference.presentation.adapter
+package com.survivalcoding.network_apps.feature_conference.presentation.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.network_apps.databinding.ConferenceListItemBinding
-import com.survivalcoding.network_apps.conference.domain.model.ConferenceItem
+import com.survivalcoding.network_apps.feature_conference.domain.model.ConferenceItem
 
 class ConferenceItemViewHolder(private val binding: ConferenceListItemBinding) :
     RecyclerView.ViewHolder(binding.root) {

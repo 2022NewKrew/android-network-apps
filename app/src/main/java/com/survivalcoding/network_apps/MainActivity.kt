@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import com.survivalcoding.network_apps.databinding.ActivityMainBinding
 import com.survivalcoding.network_apps.feature_basic.presentation.BasicActivity
-import com.survivalcoding.network_apps.conference.presentation.ConferenceActivity
+import com.survivalcoding.network_apps.feature_conference.presentation.ConferenceActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

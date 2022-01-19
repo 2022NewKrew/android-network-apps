@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.conference.data.datasource
+package com.survivalcoding.network_apps.feature_conference.data.datasource
 
 class ConferenceURL {
     companion object {

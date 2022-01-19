@@ -66,22 +66,29 @@ class ConferencesFragment : Fragment() {
         }
 
         viewModel.exception.observe(this) {
-            when (it) {
-                is SocketException -> Toast.makeText(
-                    requireContext(),
-                    "Socket Excpetion",
-                    Toast.LENGTH_SHORT
-                ).show()
-                is HttpException -> Toast.makeText(
-                    requireContext(),
-                    "Parse Error",
-                    Toast.LENGTH_SHORT
-                ).show()
-                is UnknownHostException -> Toast.makeText(
-                    requireContext(),
-                    "Wrong Connection",
-                    Toast.LENGTH_SHORT
-                )
+            it?.let {
+                when (it) {
+                    is SocketException -> Toast.makeText(
+                        requireContext(),
+                        "Socket Excpetion",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    is HttpException -> Toast.makeText(
+                        requireContext(),
+                        "Parse Error",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    is UnknownHostException -> Toast.makeText(
+                        requireContext(),
+                        "Wrong Connection",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    else -> Toast.makeText(
+                        requireContext(),
+                        "Unknown",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }

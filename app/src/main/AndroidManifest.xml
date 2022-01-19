@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Network_apps" >
         <activity
-            android:name=".feature_basic.presentation.conference.ConferenceActivity"
+            android:name=".conference.presentation.ConferenceActivity"
             android:exported="false" />
         <activity
-            android:name=".feature_basic.presentation.basic.BasicActivity"
+            android:name=".feature_basic.presentation.BasicActivity"
             android:exported="false"
             android:label="Basic" />
         <activity

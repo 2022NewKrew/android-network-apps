@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import com.survivalcoding.network_apps.databinding.ActivityMainBinding
-import com.survivalcoding.network_apps.feature_basic.presentation.basic.BasicActivity
-import com.survivalcoding.network_apps.feature_basic.presentation.conference.ConferenceActivity
+import com.survivalcoding.network_apps.feature_basic.presentation.BasicActivity
+import com.survivalcoding.network_apps.conference.presentation.ConferenceActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

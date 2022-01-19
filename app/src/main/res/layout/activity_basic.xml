@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature_basic.presentation.basic.BasicActivity">
+    tools:context=".feature_basic.presentation.BasicActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
-        android:name="com.survivalcoding.network_apps.feature_basic.presentation.basic.BasicFragment"
+        android:name="com.survivalcoding.network_apps.feature_basic.presentation.BasicFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

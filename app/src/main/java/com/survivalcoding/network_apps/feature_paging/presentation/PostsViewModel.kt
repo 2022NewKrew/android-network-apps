@@ -1,13 +1,17 @@
 package com.survivalcoding.network_apps.feature_paging.presentation
 
 import androidx.lifecycle.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.survivalcoding.network_apps.feature_paging.domain.model.Post
 import com.survivalcoding.network_apps.feature_paging.domain.usecase.GetPostsUseCase
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class PostsViewModel(private val getPostsUseCase: GetPostsUseCase) : ViewModel() {
+class PostsViewModel(getPostsUseCase: GetPostsUseCase) : ViewModel() {
     private val _state = MutableLiveData(PostsState())
     val state: LiveData<PostsState> get() = _state
+    val posts: Flow<PagingData<Post>> = getPostsUseCase().cachedIn(viewModelScope)
 
     init {
         getPosts()
@@ -15,9 +19,6 @@ class PostsViewModel(private val getPostsUseCase: GetPostsUseCase) : ViewModel()
 
     private fun getPosts() = viewModelScope.launch {
         _state.value = state.value?.copy(isLoading = true)
-        getPostsUseCase().collect { list ->
-            _state.value = state.value?.copy(posts = list)
-        }
         _state.value = state.value?.copy(isLoading = false)
     }
 }

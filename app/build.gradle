@@ -63,4 +63,6 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:4.9.1"
     // coroutines flow
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+    // paging
+    implementation 'androidx.paging:paging-runtime-ktx:3.1.0'
 }

@@ -6,6 +6,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface ConferenceService {
-    @GET("$CONFERENCE_URL")
+    @GET(CONFERENCE_URL)
     suspend fun getData(): Response<List<ConferenceItem>>
 }

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import com.example.paging.presentation.PostListActivity
+import com.survivalcoding.network_apps.feature_paging.presentation.PostListActivity
 import com.example.presentation.BasicMainActivity
 
 class MainActivity : AppCompatActivity() {

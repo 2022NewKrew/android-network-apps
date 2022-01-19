@@ -7,7 +7,8 @@ import retrofit2.http.Query
 
 interface PostApi {
     @GET("posts")
-    suspend fun getPosts(@Query("page") page: Int, @Query("limit") limit: Int): List<Post>
+    suspend fun getPosts(@Query("_page") page: Int, @Query("_limit") limit: Int): List<Post>
+
     companion object {
         const val BASE_URL = "https://jsonplaceholder.typicode.com"
     }

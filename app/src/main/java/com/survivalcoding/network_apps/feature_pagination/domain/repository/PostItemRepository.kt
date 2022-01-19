@@ -5,5 +5,5 @@ import com.survivalcoding.network_apps.feature_pagination.domain.model.PostItem
 import kotlinx.coroutines.flow.Flow
 
 interface PostItemRepository {
-    suspend fun getPostItems(): Flow<PagingData<PostItem>>
+    fun getPostItems(): Flow<PagingData<PostItem>>
 }

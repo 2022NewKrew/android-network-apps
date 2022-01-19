@@ -20,15 +20,13 @@ class PageRemotePostItemDataSource : PagingSource<Int, PostItem>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PostItem> {
         return try {
             val pageIndex = params.key ?: 1
-            val response = service.getPosts(page = pageIndex).map {
+            val response = service.getPosts(page = pageIndex, pageSize = 20).map {
                 PostItem(it, service.getUserById(it.userId).name)
             }
-            val nextKey =
-                if (response.isEmpty()) null else pageIndex + (params.loadSize / NETWORK_PAGE_SIZE)
             LoadResult.Page(
                 data = response,
-                prevKey = if (pageIndex == 1) null else pageIndex,
-                nextKey = nextKey
+                prevKey = null,
+                nextKey = pageIndex + 1,
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

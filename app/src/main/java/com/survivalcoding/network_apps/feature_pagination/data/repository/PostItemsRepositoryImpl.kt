@@ -14,7 +14,7 @@ const val NETWORK_PAGE_SIZE = 20
 class PostItemsRepositoryImpl(
     private val datasource: PageRemotePostItemDataSource
 ) : PostItemRepository {
-    override suspend fun getPostItems(): Flow<PagingData<PostItem>> {
+    override fun getPostItems(): Flow<PagingData<PostItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,

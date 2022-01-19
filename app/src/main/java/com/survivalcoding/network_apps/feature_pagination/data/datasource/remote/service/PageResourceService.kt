@@ -9,7 +9,8 @@ import retrofit2.http.Query
 interface PageResourceService {
     @GET("/posts")
     suspend fun getPosts(
-        @Query("page") page: Int,
+        @Query("_page") page: Int,
+        @Query("_limit") pageSize: Int,
     ): List<Post>
 
     @GET("/posts")

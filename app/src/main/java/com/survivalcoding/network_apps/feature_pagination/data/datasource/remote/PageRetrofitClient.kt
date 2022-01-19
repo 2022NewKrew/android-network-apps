@@ -12,4 +12,6 @@ object PageRetrofitClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+
 }

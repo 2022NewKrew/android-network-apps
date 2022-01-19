@@ -51,11 +51,11 @@ class PaginationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvPostsList.adapter = notPagingAdapter
+        binding.rvPostsList.adapter = adapter
 
         lifecycleScope.launch {
-            viewModel.flow.collectLatest {
-                notPagingAdapter.submitList(it)
+            viewModel.p.collectLatest {
+                adapter.submitData(it)
             }
         }
     }

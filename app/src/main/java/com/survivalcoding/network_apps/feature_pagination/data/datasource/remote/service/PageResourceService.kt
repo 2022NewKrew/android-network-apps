@@ -12,6 +12,9 @@ interface PageResourceService {
         @Query("page") page: Int,
     ): List<Post>
 
+    @GET("/posts")
+    suspend fun getPostsNotPage(): List<Post>
+
     @GET("/users/{id}")
     suspend fun getUserById(@Path("id") id: Int): User
 }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 class GetPostItemsUseCase(
     private val repository: PostItemRepository
 ) : BaseUseCase() {
-    suspend operator fun invoke(): Result<Flow<PagingData<PostItem>>> {
-        return result { repository.getPostItems() }
+    suspend operator fun invoke(): Flow<PagingData<PostItem>> {
+        return repository.getPostItems()
     }
 }

@@ -6,9 +6,9 @@ import com.survivalcoding.network_apps.feature_pagination.data.datasource.remote
 import com.survivalcoding.network_apps.feature_pagination.data.repository.NETWORK_PAGE_SIZE
 import com.survivalcoding.network_apps.feature_pagination.domain.model.PostItem
 
-class PageRemotePostItemDataSource(
-    private val service: PageResourceService
-) : PagingSource<Int, PostItem>() {
+class PageRemotePostItemDataSource : PagingSource<Int, PostItem>() {
+
+    private val service = PageRetrofitClient.getClient().create(PageResourceService::class.java)
 
     override fun getRefreshKey(state: PagingState<Int, PostItem>): Int? {
         return state.anchorPosition?.let { anchorPosition ->

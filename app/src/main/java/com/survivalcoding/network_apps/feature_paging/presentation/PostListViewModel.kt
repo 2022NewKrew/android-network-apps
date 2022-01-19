@@ -7,6 +7,8 @@ import com.survivalcoding.network_apps.feature_paging.domain.model.User
 import com.survivalcoding.network_apps.feature_paging.domain.usecase.GetPostsUseCase
 import com.survivalcoding.network_apps.feature_paging.domain.usecase.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -32,18 +34,30 @@ class PostListViewModel @Inject constructor(
         viewModelScope.launch {
             _postListUiState.value = _postListUiState.value.copy(isLoading = true)
 
-            val newPostList: List<PostItem> = postListUiState.value
+            val deferredPostWriters = mutableMapOf<Int, Deferred<User>>()
+
+            val newPosts = getPostsUseCase(++lastPage).filter {
+                it.userId != null
+            }
+
+            newPosts.forEach {
+                deferredPostWriters[it.id ?: 0] = async {
+                    getUserUseCase(it.userId ?: 0)
+                }
+            }
+
+            val newPostItemList: List<PostItem> = postListUiState.value
                 .postList
                 .plus(
-                    getPostsUseCase(++lastPage).filter {
-                        it.userId != null
+                    newPosts.filter {
+                        deferredPostWriters[it.id] != null
                     }.map {
-                        PostItem(it, getUserUseCase(it.userId ?: 0))
+                        PostItem(it, deferredPostWriters[it.id]?.await() ?: User())
                     }
                 )
 
             _postListUiState.value = _postListUiState.value.copy(
-                postList = newPostList, isLoading = false
+                postList = newPostItemList, isLoading = false
             )
         }
     }

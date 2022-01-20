@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PostWithName(
-    val body: String,
-    val id: Int,
-    val title: String,
-    val user: String
+    val body: String?,
+    val id: Int?,
+    val title: String?,
+    val user: String?
 ) : Parcelable

@@ -19,7 +19,7 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
-    companion object{
+    companion object {
         const val BODY_MAX = 50
         const val TITLE_MAX = 5
     }

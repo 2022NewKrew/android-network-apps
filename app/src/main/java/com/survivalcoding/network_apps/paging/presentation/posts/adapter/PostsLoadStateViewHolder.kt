@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.databinding.ItemPostsLoadStateFooterViewBinding
 
-class PostsLoadStateViewHolder(private val binding: ItemPostsLoadStateFooterViewBinding, retry: () -> Unit) :
+class PostsLoadStateViewHolder(
+    private val binding: ItemPostsLoadStateFooterViewBinding,
+    retry: () -> Unit
+) :
     RecyclerView.ViewHolder(binding.root) {
 
     init {

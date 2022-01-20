@@ -6,7 +6,7 @@ class GetListOfPostWithName(
     private val getRemotePosts: GetRemotePosts,
     private val getRemoteUserById: GetRemoteUserById
 ) {
-    suspend operator fun invoke(page: Int, limit: Int) : List<PostWithName>{
+    suspend operator fun invoke(page: Int, limit: Int): List<PostWithName> {
         val posts = getRemotePosts(page, limit)
         val userMap = mutableMapOf<Int, String>()
         val response = mutableListOf<PostWithName>()
@@ -14,7 +14,7 @@ class GetListOfPostWithName(
         for (post in posts) {
             val name =
                 if (post.userId in userMap) userMap[post.userId]
-                else getRemoteUserById(post.userId).name
+                else getRemoteUserById(post.userId)?.name
             name?.let { userMap[post.userId] = name }
             response.add(
                 PostWithName(

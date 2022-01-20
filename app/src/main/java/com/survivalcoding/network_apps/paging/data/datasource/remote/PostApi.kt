@@ -12,7 +12,7 @@ interface PostApi {
     suspend fun getPosts(@Query("_page") page: Int, @Query("_limit") limit: Int): List<Post>
 
     @GET("users/{id}")
-    suspend fun getUserById(@Path("id") id: Int): User
+    suspend fun getUserById(@Path("id") id: Int): User?
 
     companion object {
         const val BASE_URL = "https://jsonplaceholder.typicode.com"

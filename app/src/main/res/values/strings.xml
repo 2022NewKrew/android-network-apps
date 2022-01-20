@@ -2,4 +2,5 @@
     <string name="app_name">network_apps</string>
     <string name="go_to_official_website">Go to official website</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_network">데이터를 불러올 수 없습니다. 네트워크를 상태를 확인하세요.</string>
 </resources>

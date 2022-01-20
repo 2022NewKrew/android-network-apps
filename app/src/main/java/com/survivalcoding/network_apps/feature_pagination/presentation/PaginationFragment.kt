@@ -20,7 +20,13 @@ class PaginationFragment : Fragment() {
     private var _binding: FragmentPaginationBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter by lazy { PaginationListAdapter() }
+    private val adapter by lazy {
+        PaginationListAdapter(
+            clickEvent = { item ->
+                viewModel.expendPost(item)
+            }
+        )
+    }
 
     private val viewModel by viewModels<PaginationViewModel> {
         PaginationViewModelFactory((requireActivity().application as App).paginationRepository)

@@ -5,7 +5,9 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.survivalcoding.network_apps.feature_pagination.domain.model.PostItem
 
-class PaginationListAdapter : PagingDataAdapter<PostItem, PaginationListHolder>(
+class PaginationListAdapter(
+    private val clickEvent: (postItem: PostItem) -> Unit,
+) : PagingDataAdapter<PostItem, PaginationListHolder>(
     object : DiffUtil.ItemCallback<PostItem>() {
         override fun areItemsTheSame(oldItem: PostItem, newItem: PostItem): Boolean {
             return oldItem.id == newItem.id
@@ -17,7 +19,7 @@ class PaginationListAdapter : PagingDataAdapter<PostItem, PaginationListHolder>(
     }
 ) {
     override fun onBindViewHolder(holder: PaginationListHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), clickEvent)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaginationListHolder {

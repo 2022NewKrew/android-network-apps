@@ -13,6 +13,7 @@ import com.survivalcoding.network_apps.feature_pagination.domain.usecase.GetPost
 import com.survivalcoding.network_apps.feature_pagination.domain.usecase.GetUsersUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class PaginationViewModel(
@@ -22,11 +23,13 @@ class PaginationViewModel(
     private val _posts = getPostsUseCase().cachedIn(viewModelScope)
     private val _userData = MutableStateFlow<Map<Int, String>>(mapOf())
     private val _state = MutableStateFlow<PaginationState>(PaginationState.NotLoading)
+    private val _isFolded = MutableStateFlow<Map<Int, Boolean>>(mapOf())
 
-    val postItems = combine(_posts, _userData) { posts, userData ->
+    val postItems = combine(_posts, _userData, _isFolded) { posts, userData, isFolded ->
         posts.map { post ->
             val name = userData[post.userId] ?: ""
-            PostItem(post, name)
+            val folded = isFolded[post.id]
+            PostItem(post, name, folded ?: false)
         }
     }
     val state = _state.asLiveData()
@@ -50,6 +53,16 @@ class PaginationViewModel(
         if (state is PaginationState.PostLoadingError) {
             if (_state.value !is PaginationState.UserLoadingError) _state.value = state
         } else _state.value = state
+    }
+
+    fun expendPost(postItem: PostItem) {
+        val map = _isFolded.value.toMutableMap()
+        map[postItem.id] =
+            when (map[postItem.id]) {
+                true -> false
+                else -> true
+            }
+        _isFolded.value = map
     }
 }
 

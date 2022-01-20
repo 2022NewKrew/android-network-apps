@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.paging.presentation.posts
+package com.survivalcoding.network_apps.paging.presentation.posts.adapter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

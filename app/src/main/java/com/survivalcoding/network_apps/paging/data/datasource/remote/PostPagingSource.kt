@@ -13,6 +13,8 @@ class PostPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PostWithName> {
         return try {
             val nextPageNumber = params.key ?: 1
+
+            //ToDo: post 받기, user 받기, 합치기 관련 usecase 생성
             val posts = postApi.getPosts(nextPageNumber, NETWORK_PAGE_SIZE)
             val users = postApi.getUsers()
 

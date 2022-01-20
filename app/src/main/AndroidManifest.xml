@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Network_apps">
         <activity
+            android:name=".paging.ui.PagingActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature_conference_app_1.ui.ConferenceApp1Activity"
             android:exported="false" />
         <activity

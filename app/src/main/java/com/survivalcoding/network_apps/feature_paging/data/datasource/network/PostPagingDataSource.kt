@@ -16,6 +16,7 @@ class PostPagingDataSource(
         val nextPageNumber = params.key ?: 1
         return try {
             val response = service.getPosts(nextPageNumber, 20)
+            //초기에는 40개 중간은 20개를 호출하는 것으로 보인다.
             LoadResult.Page(
                 data = response,
                 prevKey = null,

@@ -11,10 +11,10 @@ object UserMapper {
     fun toEntity(
         user: User,
         email: String? = null,
-        address: List<Address>? = null,
+        address: Address? = null,
         phone: String? = null,
         website: String? = null,
-        company: List<Company>? = null
+        company: Company? = null
     ) = UserEntity(
         id = user.id, name = user.name, username = user.username,
         email = email,

@@ -22,11 +22,7 @@ class PaginationFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val adapter by lazy {
-        PaginationListAdapter(
-            clickEvent = { postItem ->
-
-            }
-        )
+        PaginationListAdapter()
     }
 
     private val notPagingAdapter by lazy {

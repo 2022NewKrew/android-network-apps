@@ -17,4 +17,5 @@
     <string name="information_period">Information_period</string>
     <string name="information_link">Information_link</string>
     <string name="posts">Posts</string>
+    <string name="user_information_loading_error">..User information loading error..</string>
 </resources>

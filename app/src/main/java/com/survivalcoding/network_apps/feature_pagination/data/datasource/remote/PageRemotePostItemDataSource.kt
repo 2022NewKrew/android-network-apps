@@ -20,7 +20,7 @@ class PageRemotePostItemDataSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
         return try {
             val pageIndex = params.key ?: 1
-            val response = service.getPosts(page = pageIndex, pageSize = 20)
+            val response = service.getPosts(page = pageIndex, pageSize = 5)
             LoadResult.Page(
                 data = response,
                 prevKey = null,

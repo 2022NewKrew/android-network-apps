@@ -5,8 +5,8 @@ import com.survivalcoding.network_apps.feature_pagination.domain.repository.Post
 
 class GetUsersUseCase(
     private val repository: PostItemRepository
-) {
-    suspend operator fun invoke(): List<User> {
-        return repository.getUsers()
+) : BaseUseCase() {
+    suspend operator fun invoke(): Result<List<User>> {
+        return result { repository.getUsers() }
     }
 }

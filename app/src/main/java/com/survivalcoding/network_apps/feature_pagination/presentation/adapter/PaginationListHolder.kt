@@ -14,7 +14,6 @@ class PaginationListHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
     fun bind(
         postItem: PostItem?,
-        clickEvent: (postItem: PostItem) -> Unit,
     ) {
         postItem?.let {
             binding.tvPostTitle.text = postItem.postContent.title

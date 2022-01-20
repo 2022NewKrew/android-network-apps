@@ -8,6 +8,7 @@ import com.survivalcoding.network_apps.feature_pagination.domain.repository.Post
 import com.survivalcoding.network_apps.feature_pagination.domain.usecase.BaseUseCase
 import com.survivalcoding.network_apps.feature_pagination.domain.usecase.GetPostItemsUseCase
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -19,7 +20,6 @@ class PostItemsRepositoryImplTest {
     private lateinit var retrofit: Retrofit
     private lateinit var repository: PostItemRepository
     private lateinit var useCase: GetPostItemsUseCase
-    private val vm = Vm()
 
     @Before
     fun setUp() {
@@ -37,11 +37,7 @@ class PostItemsRepositoryImplTest {
     }
 
     @Test
-    fun getPostItems() {
-        vm.viewModelScope.launch {
-            val result = useCase.invoke()
-        }
+    fun getPostItems() = runBlocking {
+        val result = useCase.invoke()
     }
 }
-
-class Vm : ViewModel()

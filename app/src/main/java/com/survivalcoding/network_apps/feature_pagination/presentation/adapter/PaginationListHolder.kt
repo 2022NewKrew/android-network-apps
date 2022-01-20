@@ -24,9 +24,11 @@ class PaginationListHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
                 if (this < 10) "0$this" else this.toString()
             }
 
-            binding.tvPostContent.maxLines =
-                if (postItem.isFolded) 1
-                else Int.MAX_VALUE
+            itemView.setOnClickListener {
+                binding.tvPostContent.maxLines =
+                    if (binding.tvPostContent.maxLines == 1) Int.MAX_VALUE
+                    else 1
+            }
         }
     }
 }

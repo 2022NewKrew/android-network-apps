@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.survivalcoding.network_apps.App
 import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.databinding.FragmentPaginationBinding
 import com.survivalcoding.network_apps.feature_pagination.data.datasource.remote.PageRemotePostItemDataSource
@@ -37,7 +38,7 @@ class PaginationFragment : Fragment() {
     }
 
     private val viewModel by viewModels<PaginationViewModel> {
-        PaginationViewModelFactory(PostItemsRepositoryImpl(PageRemotePostItemDataSource()))
+        PaginationViewModelFactory((requireActivity().application as App).paginationRepository)
     }
 
     override fun onCreateView(
@@ -54,7 +55,7 @@ class PaginationFragment : Fragment() {
         binding.rvPostsList.adapter = adapter
 
         lifecycleScope.launch {
-            viewModel.p.collectLatest {
+            viewModel.state.collectLatest {
                 adapter.submitData(it)
             }
         }

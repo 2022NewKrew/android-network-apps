@@ -36,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_below="@id/post_name"
                 android:layout_marginEnd="5dp"
                 android:contentDescription="owner"
                 tools:text="owner" />
@@ -44,7 +45,7 @@
                 android:id="@+id/post_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/post_name"
+                android:layout_below="@id/post_owner"
                 android:layout_marginTop="5dp"
                 android:contentDescription="content"
                 android:gravity="center"

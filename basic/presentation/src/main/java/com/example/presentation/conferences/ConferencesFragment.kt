@@ -10,8 +10,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.example.data.Data
 import com.example.domain.usecase.GetConferencesUseCase
-import com.example.presentation.App
 import com.example.presentation.LoadingPopUp
 import com.example.presentation.R
 import com.example.presentation.conferencedetail.ConferenceDetailFragment
@@ -37,7 +37,7 @@ class ConferencesFragment : Fragment() {
     private val viewModel: ConferencesViewModel by lazy {
         ViewModelProvider(
             this,
-            ConferencesViewModelFactory(GetConferencesUseCase((requireActivity().application as App).conferenceRepository))
+            ConferencesViewModelFactory(GetConferencesUseCase(Data.conferenceRepository))
         )[ConferencesViewModel::class.java]
     }
 

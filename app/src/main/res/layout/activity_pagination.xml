@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature_conferences.presentation.ConferencesActivity">
+    tools:context=".feature_pagination.presentation.PaginationActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view_conference"
-        android:name="com.survivalcoding.network_apps.feature_conferences.presentation.list.ConferencesFragment"
+        android:name="com.survivalcoding.network_apps.feature_pagination.presentation.PaginationFragment"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

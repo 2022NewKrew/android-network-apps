@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".conferences.presentation.info.InformationFragment">
-
+    tools:context=".feature_conferences.presentation.info.InformationFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_back_to_conferences"
         android:layout_width="wrap_content"

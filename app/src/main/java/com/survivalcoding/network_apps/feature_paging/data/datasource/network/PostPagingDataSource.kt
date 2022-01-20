@@ -10,12 +10,13 @@ import java.lang.Exception
 
 class PostPagingDataSource(
     private val service: JsonService,
+    private val pagSize: Int = 20
 ) : PagingSource<Int, Post>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
         //return LoadResult.Error(Exception("error"))
         val nextPageNumber = params.key ?: 1
         return try {
-            val response = service.getPosts(nextPageNumber, 20)
+            val response = service.getPosts(nextPageNumber, pagSize)
             //초기에는 40개 중간은 20개를 호출하는 것으로 보인다.
             LoadResult.Page(
                 data = response,

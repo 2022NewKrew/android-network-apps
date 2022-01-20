@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import com.survivalcoding.network_apps.feature_basic.presentation.BasicActivity
+import com.survivalcoding.network_apps.feature_paging.LegacyMainActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
                 },
                 AppInfo("Paging") {
-
+                    startActivity(Intent(this@MainActivity, LegacyMainActivity::class.java))
                 },
             )
 

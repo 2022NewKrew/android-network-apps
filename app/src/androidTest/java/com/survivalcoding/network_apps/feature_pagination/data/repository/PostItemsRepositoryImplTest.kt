@@ -1,12 +1,9 @@
 package com.survivalcoding.network_apps.feature_pagination.data.repository
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingSource
 import com.survivalcoding.network_apps.feature_pagination.data.datasource.remote.PageRemotePostItemDataSource
 import com.survivalcoding.network_apps.feature_pagination.data.datasource.remote.service.PageResourceService
-import com.survivalcoding.network_apps.feature_pagination.domain.repository.PostItemRepository
-import com.survivalcoding.network_apps.feature_pagination.domain.usecase.GetPostsUseCase
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -15,9 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class PostItemsRepositoryImplTest {
     private lateinit var retrofit: Retrofit
-    private lateinit var repository: PostItemRepository
-    private lateinit var useCase: GetPostsUseCase
-    private val vm = Vm()
+    private lateinit var pagingSource: PageRemotePostItemDataSource
 
     @Before
     fun setUp() {
@@ -26,8 +21,7 @@ class PostItemsRepositoryImplTest {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(PageResourceService::class.java)
-        repository = PostItemsRepositoryImpl(PageRemotePostItemDataSource())
-        useCase = GetPostsUseCase(repository)
+        pagingSource = PageRemotePostItemDataSource(service)
     }
 
     @After
@@ -36,10 +30,23 @@ class PostItemsRepositoryImplTest {
 
     @Test
     fun getPostItems() {
-        vm.viewModelScope.launch {
-            val result = useCase.invoke()
+        runBlocking {
+            val result = pagingSource.load(
+                PagingSource.LoadParams.Prepend(
+                    1,
+                    2,
+                    false,
+                )
+            )
+
+            when (result) {
+                is PagingSource.LoadResult.Error -> assert(false)
+                is PagingSource.LoadResult.Invalid -> assert(false)
+                is PagingSource.LoadResult.Page -> {
+//                    assert(result.data.size == 5)
+                    assert(result.data[0].title == "sunt aut facere repellat provident occaecati excepturi optio reprehenderit")
+                }
+            }
         }
     }
 }
-
-class Vm : ViewModel()

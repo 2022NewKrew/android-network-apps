@@ -32,6 +32,17 @@
         tools:text="title" />
 
     <TextView
+        android:id="@+id/post_tv_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/post_tv_title"
+        app:layout_constraintStart_toStartOf="@id/post_tv_title"
+        app:layout_constraintTop_toBottomOf="@id/post_tv_title"
+        tools:text="username" />
+
+    <TextView
         android:id="@+id/post_tv_body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -42,7 +53,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/post_tv_title"
         app:layout_constraintStart_toStartOf="@id/post_tv_title"
-        app:layout_constraintTop_toBottomOf="@id/post_tv_title"
+        app:layout_constraintTop_toBottomOf="@id/post_tv_username"
         tools:text="body" />
 
     <View

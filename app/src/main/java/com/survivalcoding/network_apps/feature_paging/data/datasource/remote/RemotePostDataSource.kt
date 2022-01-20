@@ -13,6 +13,13 @@ class RemotePostDataSource : PagingSource<Int, Post>() {
             val next = params.key ?: 1
             val response = service.getPosts(page = next, pageSize = 20)
 
+            val userIds = response.map { it.userId }.distinct()
+            val userNames = service.getUsers(userIds)
+
+            response.forEach { post ->
+                post.username = userNames.find { it.id == post.userId }?.name ?: ""
+            }
+
             LoadResult.Page(
                 data = response,
                 prevKey = null,

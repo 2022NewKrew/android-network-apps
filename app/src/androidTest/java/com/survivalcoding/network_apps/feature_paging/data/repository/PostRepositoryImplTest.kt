@@ -1,9 +1,12 @@
 package com.survivalcoding.network_apps.feature_paging.data.repository
 
 import android.util.Log
+import androidx.paging.flatMap
+import androidx.paging.map
 import com.survivalcoding.network_apps.feature_paging.domain.repository.PostRepository
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
@@ -28,10 +31,15 @@ class PostRepositoryImplTest {
 
     @Test
     fun getPosts() {
+
         runBlocking {
-            val postItems = postRepositoryImpl.getPosts(1)
-            Log.d(TAG, "getPosts: $postItems")
-            assertNotEquals(0, postItems.size)
+            val postItems = postRepositoryImpl.getPosts()
+            postItems.collect { pagingData ->
+                pagingData.map {
+                    Log.d(TAG, "post: $it")
+                    assertNotEquals(-1, it.id)
+                }
+            }
         }
     }
 }

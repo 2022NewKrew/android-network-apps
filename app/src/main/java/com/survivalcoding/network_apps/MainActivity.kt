@@ -1,12 +1,13 @@
 package com.survivalcoding.network_apps
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import com.survivalcoding.network_apps.databinding.ActivityMainBinding
 import com.survivalcoding.network_apps.feature_basic.presentation.BasicActivity
 import com.survivalcoding.network_apps.feature_conference.presentation.ConferenceActivity
+import com.survivalcoding.network_apps.feature_paging.presentation.PagingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this@MainActivity, ConferenceActivity::class.java))
                 },
                 AppInfo("Paging") {
-
+                    startActivity(Intent(this@MainActivity, PagingActivity::class.java))
                 },
             )
 

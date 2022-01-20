@@ -22,7 +22,7 @@ class PostListActivity : AppCompatActivity() {
     }
 
     private val adapter: PostListAdapter by lazy {
-        PostListAdapter(5, object : InfiniteScrollListener {
+        PostListAdapter(15, object : InfiniteScrollListener {
             override fun load() {
                 viewModel.loadNextPage(adapter.itemCount)
             }

@@ -8,7 +8,6 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view_conference"
         android:name="com.survivalcoding.network_apps.feature_conferences.presentation.list.ConferencesFragment"
-        android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

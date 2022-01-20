@@ -47,7 +47,9 @@ class PaginationViewModel(
     }
 
     fun setState(state: PaginationState) {
-        _state.value = state
+        if (state is PaginationState.PostLoadingError) {
+            if (_state.value !is PaginationState.UserLoadingError) _state.value = state
+        } else _state.value = state
     }
 }
 
@@ -56,6 +58,7 @@ sealed class PaginationState {
     object PostLoadingError : PaginationState()
     object NotLoading : PaginationState()
     object Loading : PaginationState()
+    object EndLoading : PaginationState()
 }
 
 class PaginationViewModelFactory(

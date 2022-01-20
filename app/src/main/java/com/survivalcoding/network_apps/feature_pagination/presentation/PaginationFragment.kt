@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,18 +39,28 @@ class PaginationFragment : Fragment() {
 
         binding.rvPostsList.adapter = adapter
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.postItems.collectLatest {
                 adapter.submitData(it)
             }
+        }
 
-            adapter.loadStateFlow.collectLatest { loadStates ->
-                when (loadStates.refresh) {
-                    is LoadState.NotLoading -> viewModel.setState(PaginationState.NotLoading)
-                    LoadState.Loading -> viewModel.setState(PaginationState.Loading)
-                    is LoadState.Error -> viewModel.setState(PaginationState.PostLoadingError)
+        adapter.addLoadStateListener { combinedLoadStates ->
+            when (combinedLoadStates.source.refresh) {
+                // 로딩 중이지 않을 때 (활성 로드 작업이 없고 에러가 없음)
+                is LoadState.NotLoading -> {
+                    // 활성 로드 작업이 없고 에러가 없음 & 로드할 수 없음
+                    if (combinedLoadStates.append.endOfPaginationReached)
+                        viewModel.setState(PaginationState.PostLoadingError)
+                    else viewModel.setState(PaginationState.NotLoading)
                 }
+                LoadState.Loading -> viewModel.setState(PaginationState.Loading)
+                is LoadState.Error -> viewModel.setState(PaginationState.PostLoadingError)
             }
+        }
+
+        binding.paginationListTitle.setOnClickListener {
+            Toast.makeText(requireContext(), "${viewModel.state.value}", Toast.LENGTH_SHORT).show()
         }
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
@@ -72,6 +83,10 @@ class PaginationFragment : Fragment() {
                 }
                 PaginationState.Loading -> {
                     binding.paginationProgressBar.isVisible = true
+                }
+                PaginationState.EndLoading -> {
+                    binding.clUserLoadingError.isVisible = false
+                    binding.paginationProgressBar.isVisible = false
                 }
             }
         }

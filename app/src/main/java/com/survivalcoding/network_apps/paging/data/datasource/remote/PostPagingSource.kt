@@ -2,6 +2,7 @@ package com.survivalcoding.network_apps.paging.data.datasource.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.survivalcoding.network_apps.paging.data.datasource.remote.PostRemoteDataSource.Companion.NETWORK_PAGE_SIZE
 import com.survivalcoding.network_apps.paging.domain.model.PostWithName
 import com.survivalcoding.network_apps.paging.domain.usecase.GetListOfPostWithName
 import com.survivalcoding.network_apps.paging.domain.usecase.GetRemotePosts
@@ -21,7 +22,7 @@ class PostPagingSource(
                     GetRemotePosts(postApi), GetRemoteUserById(postApi)
                 ).invoke(
                     nextPageNumber,
-                    params.loadSize
+                    NETWORK_PAGE_SIZE
                 )
 
             LoadResult.Page(

@@ -5,6 +5,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.network_apps.databinding.ActivityPostListBinding
 import com.survivalcoding.network_apps.feature_paging.presentation.adpater.InfiniteScrollListener
 import com.survivalcoding.network_apps.feature_paging.presentation.adpater.PostListAdapter
@@ -34,6 +36,12 @@ class PostListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.postsRecyclerView.adapter = adapter
+        binding.postsRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                LinearLayoutManager.VERTICAL
+            )
+        )
 
         lifecycleScope.launch {
             viewModel.postListUiState.flowWithLifecycle(lifecycle).collectLatest {

@@ -9,8 +9,7 @@ import com.survivalcoding.network_apps.feature_paging.domain.usecase.GetUserUseC
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,12 +26,19 @@ class PostListViewModel @Inject constructor(
         MutableStateFlow(PostListUiState(listOf(), true))
     val postListUiState = _postListUiState.asStateFlow()
 
+    private val _eventFlow = MutableSharedFlow<Event>()
+    val eventFlow = _eventFlow.asSharedFlow()
+
+
     init {
         loadNextPage(0)
     }
 
     fun loadNextPage(itemCount: Int) {
-        if (0 < prevListItemCount && prevListItemCount == itemCount) return
+        if (0 < prevListItemCount && prevListItemCount == itemCount) {
+            sendEvent(Event.NoMoreDataEvent)
+            return
+        }
         prevListItemCount = itemCount
 
         viewModelScope.launch {
@@ -66,6 +72,20 @@ class PostListViewModel @Inject constructor(
         }
     }
 
+    fun sendEvent(event: Event) {
+        viewModelScope.launch { _eventFlow.emit(event) }
+    }
+
+    data class PostListUiState(
+        val postList: List<PostItem>,
+        val isLoading: Boolean
+    )
+
+    sealed class Event {
+        object NoMoreDataEvent : Event()
+        object NetworkErrorEvent : Event()
+    }
+
     companion object {
         private const val FIRST_PAGE_INDEX = 0
     }
@@ -74,9 +94,4 @@ class PostListViewModel @Inject constructor(
 data class PostItem(
     val post: Post,
     val user: User
-)
-
-data class PostListUiState(
-    val postList: List<PostItem>,
-    val isLoading: Boolean
 )

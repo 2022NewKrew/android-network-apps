@@ -30,14 +30,14 @@ class PostListActivity : AppCompatActivity() {
     private val postListAdapter: PostListAdapter by lazy {
         PostListAdapter(15, object : InfiniteScrollListener {
             override fun load() {
-                viewModel.loadNextPage(postListAdapter.itemCount)
+                viewModel.loadNextPage()
             }
         })
     }
 
     private val loadIndicatorAdapter: LoadIndicatorAdapter by lazy {
         LoadIndicatorAdapter {
-            viewModel.loadNextPage(postListAdapter.itemCount)
+            viewModel.loadNextPage()
             loadIndicatorAdapter.setLoadState(LoadState.LOADING)
         }
     }

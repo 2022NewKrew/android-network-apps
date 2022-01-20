@@ -23,7 +23,7 @@ class PostPagingSource(private val postRepository: PostRepository): PagingSource
             }
 
             LoadResult.Page(
-                posts.map { it.copy(userName = idToUserMap[it.userId]?.username ?: "") },
+                posts.map { it.copy(userName = idToUserMap[it.userId]?.name ?: "") },
                 null,
                 key + 1
             )

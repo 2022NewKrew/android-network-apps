@@ -4,17 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.LoadStateAdapter
 import com.survivalcoding.network_apps.databinding.FragmentPostsBinding
-import com.survivalcoding.network_apps.paging.ui.posts.adapter.PostPagingAdapter
-import dagger.hilt.EntryPoint
+import com.survivalcoding.network_apps.paging.ui.posts.adapter.loadstate.PostLoadStateAdapter
+import com.survivalcoding.network_apps.paging.ui.posts.adapter.post.PostPagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -40,7 +39,7 @@ class PostsFragment: Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Posts"
 
         val adapter = PostPagingAdapter()
-        binding.postsRv.adapter = adapter
+        binding.postsRv.adapter = adapter.withLoadStateFooter(PostLoadStateAdapter(adapter::retry))
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

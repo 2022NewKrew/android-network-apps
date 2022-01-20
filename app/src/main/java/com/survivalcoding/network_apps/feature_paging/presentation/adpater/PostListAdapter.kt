@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.network_apps.feature_paging.presentation.PostItem
 
-class PostListAdapter(val threshold: Int, val infiniteScrollListener: InfiniteScrollListener) : ListAdapter<PostItem, PostItemViewHolder>(PostItemDiffUtilItemCallback()) {
+class PostListAdapter(val threshold: Int, val infiniteScrollListener: InfiniteScrollListener) :
+    ListAdapter<PostItem, PostItemViewHolder>(PostItemDiffUtilItemCallback()) {
 
     private val onScrollListener = object : RecyclerView.OnScrollListener() {
 
         private var isScrollingUp = false
+        private var prevItemCount = 0
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
@@ -20,6 +22,8 @@ class PostListAdapter(val threshold: Int, val infiniteScrollListener: InfiniteSc
                     (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
                 if (lastVisibleItemPosition >= (recyclerView.layoutManager as LinearLayoutManager).itemCount - 1 - threshold) {
+                    if (0 < prevItemCount && prevItemCount == recyclerView.adapter?.itemCount ?: return) return
+                    prevItemCount = recyclerView.adapter?.itemCount ?: return
                     infiniteScrollListener.load()
                 }
             }

@@ -25,7 +25,7 @@ class PostPagingSource(private val postRepository: PostRepository): PagingSource
             LoadResult.Page(
                 posts.map { it.copy(userName = idToUserMap[it.userId]?.name ?: "") },
                 null,
-                key + 1
+                if(posts.isEmpty()) null else key + 1
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

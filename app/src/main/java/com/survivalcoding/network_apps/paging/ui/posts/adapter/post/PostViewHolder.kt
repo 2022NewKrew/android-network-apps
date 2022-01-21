@@ -1,10 +1,12 @@
 package com.survivalcoding.network_apps.paging.ui.posts.adapter.post
 
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.network_apps.databinding.ListItemPostBinding
 import com.survivalcoding.network_apps.paging.domain.model.Post
+import com.survivalcoding.network_apps.paging.ui.posts.PostItem
 
-class PostViewHolder(private val binding: ListItemPostBinding) :
+class PostViewHolder(private val binding: ListItemPostBinding, private val onClick: (Int, Boolean) -> Unit) :
     RecyclerView.ViewHolder(binding.root) {
 
     companion object {
@@ -12,18 +14,21 @@ class PostViewHolder(private val binding: ListItemPostBinding) :
         const val EXPANDED_LINES = 10
     }
 
-    fun bind(post: Post?) {
-        post?.run {
-            binding.indexTv.text = id.toString()
-            binding.titleTv.text = title
-            binding.bodyTv.text = body
-            binding.bodyTv.maxLines = COLLAPSED_LINES
-            binding.userNameTv.text = post.userName ?: ""
+    fun bind(postItem: PostItem?) {
+        postItem?.run {
+            binding.indexTv.text = post.id.toString()
+            binding.titleTv.text = post.title
+            binding.bodyTv.text = post.body
+            binding.bodyTv.maxLines = if(isExpanded) EXPANDED_LINES else COLLAPSED_LINES
+            binding.userNameTv.text = userName
         }
 
         binding.root.setOnClickListener {
-            binding.bodyTv.maxLines =
-                if (binding.bodyTv.maxLines > COLLAPSED_LINES) COLLAPSED_LINES else EXPANDED_LINES
+            postItem?.let {
+                binding.bodyTv.maxLines =
+                    if (it.isExpanded) EXPANDED_LINES else COLLAPSED_LINES
+                onClick(it.post.id, !it.isExpanded)
+            }
         }
     }
 }

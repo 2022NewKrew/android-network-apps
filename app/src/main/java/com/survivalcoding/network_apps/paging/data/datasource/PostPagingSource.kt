@@ -9,21 +9,13 @@ import java.lang.Exception
 
 class PostPagingSource(private val postRepository: PostRepository): PagingSource<Int, Post>() {
 
-    private val idToUserMap = mutableMapOf<Int, User>()
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
         return try {
             val key = params.key ?: 1
             val posts = postRepository.getPostsByPage(key, params.loadSize)
 
-            posts.forEach {
-                if(it.userId !in idToUserMap) {
-                    idToUserMap[it.userId] = postRepository.getUserById(it.userId)
-                }
-            }
-
             LoadResult.Page(
-                posts.map { it.copy(userName = idToUserMap[it.userId]?.name ?: "") },
+                posts,
                 null,
                 if(posts.isEmpty()) null else key + 1
             )

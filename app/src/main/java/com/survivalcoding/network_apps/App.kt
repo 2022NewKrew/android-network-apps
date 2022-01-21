@@ -8,6 +8,11 @@ import com.survivalcoding.network_apps.feature_conferences.data.repository.Confe
 import com.survivalcoding.network_apps.feature_basic.data.datasource.remote.BasicTodoNetworkSource
 import com.survivalcoding.network_apps.feature_basic.data.datasource.remote.service.BasicTodoService
 import com.survivalcoding.network_apps.feature_basic.data.repository.TodoRepositoryImpl
+import com.survivalcoding.network_apps.feature_pagination.data.datasource.remote.PageRemotePostItemDataSource
+import com.survivalcoding.network_apps.feature_pagination.data.datasource.remote.PageRetrofitClient
+import com.survivalcoding.network_apps.feature_pagination.data.datasource.remote.service.PageResourceService
+import com.survivalcoding.network_apps.feature_pagination.data.repository.PostItemsRepositoryImpl
+import com.survivalcoding.network_apps.feature_pagination.domain.repository.PostItemRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -30,4 +35,10 @@ class App : Application() {
 
     val conferencesRepository =
         ConferenceRepositoryImpl(ConferencesNetworkSource(conferencesService))
+
+    private val paginationService =
+        PageRetrofitClient.getClient().create(PageResourceService::class.java)
+
+    val paginationRepository =
+        PostItemsRepositoryImpl(PageRemotePostItemDataSource(paginationService))
 }

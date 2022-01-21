@@ -3,26 +3,24 @@ package com.survivalcoding.network_apps.feature_pagination.data.datasource.remot
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.survivalcoding.network_apps.feature_pagination.data.datasource.remote.service.PageResourceService
-import com.survivalcoding.network_apps.feature_pagination.data.repository.NETWORK_PAGE_SIZE
-import com.survivalcoding.network_apps.feature_pagination.domain.model.PostItem
+import com.survivalcoding.network_apps.feature_pagination.domain.model.Post
+import com.survivalcoding.network_apps.feature_pagination.domain.model.User
 
-class PageRemotePostItemDataSource : PagingSource<Int, PostItem>() {
+class PageRemotePostItemDataSource(
+    private val service: PageResourceService
+) : PagingSource<Int, Post>(), PageRemoteDataSource {
 
-    private val service = PageRetrofitClient.getClient().create(PageResourceService::class.java)
-
-    override fun getRefreshKey(state: PagingState<Int, PostItem>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Post>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PostItem> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
         return try {
             val pageIndex = params.key ?: 1
-            val response = service.getPosts(page = pageIndex, pageSize = 20).map {
-                PostItem(it, service.getUserById(it.userId).name)
-            }
+            val response = service.getPosts(page = pageIndex, pageSize = 5)
             LoadResult.Page(
                 data = response,
                 prevKey = null,
@@ -31,5 +29,13 @@ class PageRemotePostItemDataSource : PagingSource<Int, PostItem>() {
         } catch (e: Exception) {
             LoadResult.Error(e)
         }
+    }
+
+    override suspend fun getUsers(): List<User> {
+        return service.getUsers()
+    }
+
+    override suspend fun getPosts(): List<Post> {
+        return service.getPostsNotPage()
     }
 }

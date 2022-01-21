@@ -16,6 +16,6 @@ interface PageResourceService {
     @GET("/posts")
     suspend fun getPostsNotPage(): List<Post>
 
-    @GET("/users/{id}")
-    suspend fun getUserById(@Path("id") id: Int): User
+    @GET("/users")
+    suspend fun getUsers(): List<User>
 }

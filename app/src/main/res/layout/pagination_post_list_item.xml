@@ -28,12 +28,13 @@
 
         <TextView
             android:id="@+id/tv_post_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"
             android:text="@string/sample"
             android:textColor="@color/black"
             android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_post_number"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,20 +46,22 @@
             android:fontFamily="@font/acme"
             android:text="@string/sample"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_post_number"
             app:layout_constraintTop_toBottomOf="@+id/tv_post_title" />
 
         <TextView
             android:id="@+id/tv_post_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:ellipsize="end"
             android:fontFamily="@font/acme"
+            android:maxLines="1"
             android:text="@string/sample"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_post_number"
             app:layout_constraintTop_toBottomOf="@+id/tv_post_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>

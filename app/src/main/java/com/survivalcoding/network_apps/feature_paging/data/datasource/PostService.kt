@@ -13,7 +13,7 @@ interface PostService {
     @GET(POSTS_URL)
     suspend fun getPosts(
         @Query("_page") page: Int,
-        @Query("_limit") limit: Int = 20
+        @Query("_limit") limit: Int
     ): Response<List<PostCacheItem>>
 
     @GET("${USERS_URL}/{id}")

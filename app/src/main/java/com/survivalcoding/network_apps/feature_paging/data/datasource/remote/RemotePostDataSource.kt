@@ -5,13 +5,18 @@ import androidx.paging.PagingState
 import com.survivalcoding.network_apps.feature_paging.data.datasource.remote.service.PostService
 import com.survivalcoding.network_apps.feature_paging.domain.model.Post
 
-class RemotePostDataSource : PagingSource<Int, Post>() {
-    private val service = RetrofitClient.getClient().create(PostService::class.java)
-
+class RemotePostDataSource(private val service: PostService) : PagingSource<Int, Post>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
         return try {
             val next = params.key ?: 1
             val response = service.getPosts(page = next, pageSize = 20)
+
+            val userIds = response.map { it.userId }.distinct()
+            val userNames = service.getUsers(userIds)
+
+            response.forEach { post ->
+                post.username = userNames.find { it.id == post.userId }?.name ?: ""
+            }
 
             LoadResult.Page(
                 data = response,

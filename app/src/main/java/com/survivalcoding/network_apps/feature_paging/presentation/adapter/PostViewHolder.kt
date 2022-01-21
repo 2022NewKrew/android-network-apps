@@ -12,6 +12,7 @@ class PostViewHolder(
         binding.postTvId.text = post.id.toString()
         binding.postTvTitle.text = post.title
         binding.postTvBody.text = post.body
+        binding.postTvUsername.text = post.username
         binding.root.setOnClickListener {
             binding.postTvBody.maxLines = if (binding.postTvBody.maxLines == 1) Int.MAX_VALUE else 1
         }

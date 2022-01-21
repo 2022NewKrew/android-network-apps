@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.paging.presentation.posts
+package com.survivalcoding.network_apps.paging.presentation.posts.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -13,5 +13,14 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.bodyText.text = post.body
         binding.titleText.text = post.title
         binding.nameText.text = post.user
+        itemView.setOnClickListener {
+            binding.bodyText.maxLines = if (binding.bodyText.maxLines == 1) BODY_MAX else 1
+            binding.titleText.maxLines = if (binding.titleText.maxLines == 1) TITLE_MAX else 1
+        }
+    }
+
+    companion object {
+        const val BODY_MAX = 50
+        const val TITLE_MAX = 5
     }
 }

@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.paging.presentation.posts
+package com.survivalcoding.network_apps.paging.presentation.posts.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

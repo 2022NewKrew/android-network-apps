@@ -4,6 +4,9 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.survivalcoding.network_apps.paging.data.datasource.remote.PostRemoteDataSource.Companion.NETWORK_PAGE_SIZE
 import com.survivalcoding.network_apps.paging.domain.model.PostWithName
+import com.survivalcoding.network_apps.paging.domain.usecase.GetListOfPostWithName
+import com.survivalcoding.network_apps.paging.domain.usecase.GetRemotePosts
+import com.survivalcoding.network_apps.paging.domain.usecase.GetRemoteUserById
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -13,21 +16,14 @@ class PostPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PostWithName> {
         return try {
             val nextPageNumber = params.key ?: 1
-            val posts = postApi.getPosts(nextPageNumber, NETWORK_PAGE_SIZE)
-            val users = postApi.getUsers()
 
-            val response = mutableListOf<PostWithName>()
-            for (post in posts) {
-                response.add(
-                    PostWithName(
-                        body = post.body,
-                        title = post.title,
-                        id = post.id,
-                        user =
-                        users.first { it.id == post.userId }.name
-                    )
+            val response =
+                GetListOfPostWithName(
+                    GetRemotePosts(postApi), GetRemoteUserById(postApi)
+                ).invoke(
+                    nextPageNumber,
+                    NETWORK_PAGE_SIZE
                 )
-            }
 
             LoadResult.Page(
                 data = response,

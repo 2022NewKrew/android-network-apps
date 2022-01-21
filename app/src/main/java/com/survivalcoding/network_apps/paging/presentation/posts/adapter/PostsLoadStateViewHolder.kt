@@ -1,4 +1,4 @@
-package com.survivalcoding.network_apps.paging.presentation.posts
+package com.survivalcoding.network_apps.paging.presentation.posts.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.databinding.ItemPostsLoadStateFooterViewBinding
 
-class PostsLoadStateViewHolder(private val binding: ItemPostsLoadStateFooterViewBinding, retry: () -> Unit) :
+class PostsLoadStateViewHolder(
+    private val binding: ItemPostsLoadStateFooterViewBinding,
+    retry: () -> Unit
+) :
     RecyclerView.ViewHolder(binding.root) {
 
     init {

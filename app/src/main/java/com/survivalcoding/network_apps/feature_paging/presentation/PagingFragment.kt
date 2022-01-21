@@ -11,7 +11,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -34,12 +33,7 @@ class PagingFragment : Fragment(R.layout.fragment_paging) {
             (requireActivity().application as MyApp).userRepository
         )
     }
-    private val adapter = PostInfoListAdapter(
-        userFromCache = { id -> viewModel.getUserFromCache(id) },
-        userFromNet = { id ->
-            viewModel.eventHandler(TestEvent.RequestNet(id))
-        }
-    )
+    private val adapter = PostInfoListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,27 +59,14 @@ class PagingFragment : Fragment(R.layout.fragment_paging) {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 adapter.addLoadStateListener {
                     if (it.refresh is LoadState.Error) {
-                        println((it.refresh as LoadState.Error).error.message)
                         Snackbar.make(view, "ERROR!!!", Snackbar.LENGTH_SHORT).show()
                     }
                 }
 
-                viewModel.state.collectLatest {
-                    it.post?.collectLatest { posts ->
-                        adapter.submitData(PagingData.empty())
-                        println(it.users)
-                        adapter.submitData(posts)
-                    }
-
+                viewModel.items.collectLatest {
+                    adapter.submitData(it)
                 }
 
-/*                viewModel.state.post?.collectLatest { pagingData ->
-                    adapter.submitData(pagingData)
-                }
-
-                viewModel. {
-                    adapter.submitData()
-                }*/
             }
         }
     }

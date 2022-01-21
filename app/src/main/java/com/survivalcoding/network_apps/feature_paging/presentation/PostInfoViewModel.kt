@@ -2,7 +2,9 @@ package com.survivalcoding.network_apps.feature_paging.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.survivalcoding.network_apps.feature_paging.domain.model.Post
 import com.survivalcoding.network_apps.feature_paging.domain.model.User
 import com.survivalcoding.network_apps.feature_paging.domain.repository.PostRepository
@@ -17,65 +19,37 @@ class PostInfoViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    private var _state =
-        MutableStateFlow(PostInfoState(post = postRepository.getPosts().cachedIn(viewModelScope)))
-    val state: Flow<PostInfoState> = _state
+    private var _items = MutableStateFlow<PagingData<PostWithUserInfo>>(PagingData.empty())
+    val items get(): Flow<PagingData<PostWithUserInfo>> = _items
 
-    private val requestProcess = mutableMapOf<Int, Int>()
-/*    init {
-       viewModelScope.launch {
-           postRepository.getPosts().cachedIn(viewModelScope).collect {
-               it.
-           }
-       }
-    }*/
-
-    // requesting = 1, // success = 2 // fail =3
-    private fun getUserFromNet(id: Int) {
-        if (requestProcess[id] == null) {
-            requestProcess[id] = 1
-            viewModelScope.launch {
-                val newUserInfo = userRepository.getUserFromNet(id)
-                newUserInfo?.id?.let { it ->
-                    requestProcess[id] = 2
-                    // _state.value.users[it] = newUserInfo
-                    val m = mutableMapOf<Int, User>()
-                    _state.value.users.toMap(m)
-                    m[it] = newUserInfo
-                    _state.value = _state.value.copy(users = m)
+    init {
+        viewModelScope.launch {
+            postRepository.getPosts().cachedIn(viewModelScope).collect {
+                _items.value = it.map { post ->
+                    if (post.userId == null) {
+                        PostWithUserInfo(post = post, user = null) // userID가 없을 경우
+                    } else {
+                        val userInfo = userRepository.getUserFromCache(post.userId) // cache 확인
+                        if (userInfo != null) {
+                            PostWithUserInfo(post = post, user = userInfo)
+                        } else {
+                            // network 연결이 필요한 경우
+                            userRepository.users[post.userId] = User(null, null, null)
+                            val newUser = userRepository.getUserFromNet(post.userId)
+                            userRepository.users[post.userId] = newUser
+                            PostWithUserInfo(post = post, user = newUser)
+                        }
+                    }
                 }
-                println(newUserInfo)
             }
         }
-
     }
 
-    fun getUserFromCache(id: Int): User? = _state.value.users[id]
-
-    fun eventHandler(event: TestEvent) {
-        when (event) {
-            is TestEvent.RequestCache -> {
-                getUserFromCache(event.id)
-            }
-            is TestEvent.RequestNet -> {
-                getUserFromNet(event.id)
-            }
-            is TestEvent.ResultNet -> {
-
-            }
-
-        }
-    }
 
 }
 
 data class PostWithUserInfo(
-    private val post: Post,
-    private val user: User
+    val post: Post,
+    val user: User?
 )
 
-sealed class TestEvent {
-    class RequestCache(val id: Int) : TestEvent()
-    class RequestNet(val id: Int) : TestEvent()
-    class ResultNet : TestEvent()
-}

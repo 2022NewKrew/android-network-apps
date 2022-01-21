@@ -21,6 +21,7 @@ class PostInfoViewModel(
         MutableStateFlow(PostInfoState(post = postRepository.getPosts().cachedIn(viewModelScope)))
     val state: Flow<PostInfoState> = _state
 
+    private val requestProcess = mutableMapOf<Int, Int>()
 /*    init {
        viewModelScope.launch {
            postRepository.getPosts().cachedIn(viewModelScope).collect {
@@ -29,14 +30,24 @@ class PostInfoViewModel(
        }
     }*/
 
+    // requesting = 1, // success = 2 // fail =3
     private fun getUserFromNet(id: Int) {
-        viewModelScope.launch {
-            val newUserInfo = userRepository.getUserFromNet(id)
-            newUserInfo?.id?.let { it ->
-                _state.value.users[it] = newUserInfo
+        if (requestProcess[id] == null) {
+            requestProcess[id] = 1
+            viewModelScope.launch {
+                val newUserInfo = userRepository.getUserFromNet(id)
+                newUserInfo?.id?.let { it ->
+                    requestProcess[id] = 2
+                    // _state.value.users[it] = newUserInfo
+                    val m = mutableMapOf<Int, User>()
+                    _state.value.users.toMap(m)
+                    m[it] = newUserInfo
+                    _state.value = _state.value.copy(users = m)
+                }
+                println(newUserInfo)
             }
-            println(newUserInfo)
         }
+
     }
 
     fun getUserFromCache(id: Int): User? = _state.value.users[id]

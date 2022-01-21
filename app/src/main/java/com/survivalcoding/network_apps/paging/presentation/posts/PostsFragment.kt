@@ -16,8 +16,6 @@ import com.survivalcoding.network_apps.paging.data.datasource.remote.PostRemoteD
 import com.survivalcoding.network_apps.paging.data.datasource.remote.RetrofitClient
 import com.survivalcoding.network_apps.paging.data.repository.PostRepositoryImpl
 import com.survivalcoding.network_apps.paging.presentation.posts.adapter.PostPagingDataAdapter
-import com.survivalcoding.network_apps.paging.presentation.posts.adapter.PostViewModel
-import com.survivalcoding.network_apps.paging.presentation.posts.adapter.PostViewModelFactory
 import com.survivalcoding.network_apps.paging.presentation.posts.adapter.PostsLoadStateAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

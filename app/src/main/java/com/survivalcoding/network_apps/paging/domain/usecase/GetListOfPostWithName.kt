@@ -1,30 +1,19 @@
 package com.survivalcoding.network_apps.paging.domain.usecase
 
+import com.survivalcoding.network_apps.paging.domain.model.Post
 import com.survivalcoding.network_apps.paging.domain.model.PostWithName
 
 class GetListOfPostWithName(
-    private val getRemotePosts: GetRemotePosts,
     private val getRemoteUserById: GetRemoteUserById
 ) {
-    suspend operator fun invoke(page: Int, limit: Int): List<PostWithName> {
-        val posts = getRemotePosts(page, limit)
-        val userMap = mutableMapOf<Int, String>()
-        val response = mutableListOf<PostWithName>()
+    suspend operator fun invoke(
+        userMap: MutableMap<Int, String>,
+        post: Post
+    ): PostWithName {
+        val name = userMap[post.userId] ?: getRemoteUserById(post.userId)?.name
+        if (!userMap.contains(post.userId) && getRemoteUserById(post.userId) != null)
+            userMap[post.userId] = getRemoteUserById(post.userId)!!.name
 
-        for (post in posts) {
-            val name =
-                if (post.userId in userMap) userMap[post.userId]
-                else getRemoteUserById(post.userId)?.name
-            name?.let { userMap[post.userId] = name }
-            response.add(
-                PostWithName(
-                    body = post.body,
-                    title = post.title,
-                    id = post.id,
-                    user = name
-                )
-            )
-        }
-        return response
+        return PostWithName(title = post.title, body = post.body, id = post.id, user = name)
     }
 }

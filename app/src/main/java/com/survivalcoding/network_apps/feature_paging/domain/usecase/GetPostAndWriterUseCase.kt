@@ -12,10 +12,10 @@ class GetPostAndWriterUseCase @Inject constructor(
     private val getPostsUseCase: GetPostsUseCase,
     private val getUserUseCase: GetUserUseCase
 ) {
-    suspend operator fun invoke(page: Int): List<Pair<Post, User>> {
+    suspend operator fun invoke(page: Int, pageSize: Int): List<Pair<Post, User>> {
         val deferredPostWriters = mutableMapOf<Int, Deferred<User>>()
 
-        val newPosts = getPostsUseCase(page).filter {
+        val newPosts = getPostsUseCase(page, pageSize).filter {
             it.userId != null
         }
 

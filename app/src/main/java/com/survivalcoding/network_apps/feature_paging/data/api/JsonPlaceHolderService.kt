@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface JsonPlaceHolderService {
     @GET("/posts")
-    suspend fun getPosts(@Query("_page") page: Int, @Query("_limit") limit: Int = 30): Response<List<Post>>
+    suspend fun getPosts(@Query("_page") page: Int, @Query("_limit") pageSize: Int): Response<List<Post>>
 
     @GET("/users/{id}")
     suspend fun getUser(@Path("id") id: Int): Response<User>

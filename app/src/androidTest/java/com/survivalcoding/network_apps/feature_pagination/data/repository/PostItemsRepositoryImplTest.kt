@@ -9,6 +9,8 @@ import org.junit.Before
 import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import org.junit.Assert.*
+
 
 class PostItemsRepositoryImplTest {
     private lateinit var retrofit: Retrofit
@@ -43,8 +45,8 @@ class PostItemsRepositoryImplTest {
                 is PagingSource.LoadResult.Error -> assert(false)
                 is PagingSource.LoadResult.Invalid -> assert(false)
                 is PagingSource.LoadResult.Page -> {
-//                    assert(result.data.size == 5)
-                    assert(result.data[0].title == "sunt aut facere repellat provident occaecati excepturi optio reprehenderit")
+                    assertEquals(2, result.data.size)
+                    assertEquals(result.data[0].title, "sunt aut facere repellat provident occaecati excepturi optio reprehenderit")
                 }
             }
         }

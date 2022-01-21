@@ -9,8 +9,9 @@ import kotlinx.coroutines.*
 
 class PostInfoListAdapter(
     private val userFromCache: (id: Int) -> User?,
-    private val userFromNet: (id: Int) -> () -> User?
+    private val userFromNet: (id: Int) -> Unit
 ) : PagingDataAdapter<Post, PostInfoViewHolder>(PostInfoDiffItemCallback) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostInfoViewHolder =
         PostInfoViewHolder.builder(parent)
 
@@ -19,22 +20,11 @@ class PostInfoListAdapter(
             post.userId?.let { userId ->
                 val cacheData = userFromCache(userId)
                 if (cacheData == null) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        val testUser = async { userFromNet(userId)() }
-                        val test = testUser.await()
-                        withContext(Dispatchers.Main) {
-
-                            println(test)
-                            holder.bind(post, test)
-                        }
-                    }
-                } else {
-                    holder.bind(post, cacheData)
+                    userFromNet(userId)
                 }
+                println("in adapter=>"+userFromCache(userId))
+                holder.bind(post, cacheData)
             }
-
         }
-
-
     }
 }

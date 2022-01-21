@@ -11,13 +11,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import androidx.paging.map
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.survivalcoding.network_apps.MyApp
 import com.survivalcoding.network_apps.R
-import com.survivalcoding.network_apps.feature_paging.domain.model.User
 import com.survivalcoding.network_apps.feature_paging.presentation.adapter.PostInfoListAdapter
 import com.survivalcoding.network_apps.feature_paging.presentation.util.PostInfoViewModelProvider
 import kotlinx.coroutines.flow.collectLatest
@@ -38,15 +37,7 @@ class PagingFragment : Fragment(R.layout.fragment_paging) {
     private val adapter = PostInfoListAdapter(
         userFromCache = { id -> viewModel.getUserFromCache(id) },
         userFromNet = { id ->
-            {
-                try {
-                    viewModel.getUserFromNet(id)
-                    viewModel.state.users[id]
-                } catch (e: Exception) {
-                    null
-                }
-            }
-
+            viewModel.eventHandler(TestEvent.RequestNet(id))
         }
     )
 
@@ -74,24 +65,27 @@ class PagingFragment : Fragment(R.layout.fragment_paging) {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 adapter.addLoadStateListener {
                     if (it.refresh is LoadState.Error) {
+                        println((it.refresh as LoadState.Error).error.message)
                         Snackbar.make(view, "ERROR!!!", Snackbar.LENGTH_SHORT).show()
                     }
                 }
-                viewModel.state.post?.collectLatest { pagingData ->
-                    adapter.submitData(pagingData)
-/*                   뭔가 꼬였다.
- adapter.snapshot().forEach { post ->
-                        post?.userId?.let { userId ->
-                            val userInfo: User? = viewModel.getUserFromCache(userId)
-                            if (userInfo != null) {
-                                post.userName = userInfo.username
-                            } else {
 
-                            }
-                        }
+                viewModel.state.collectLatest {
+                    it.post?.collectLatest { posts ->
+                        adapter.submitData(PagingData.empty())
+                        println(it.users)
+                        adapter.submitData(posts)
+                    }
 
-                    }*/
                 }
+
+/*                viewModel.state.post?.collectLatest { pagingData ->
+                    adapter.submitData(pagingData)
+                }
+
+                viewModel. {
+                    adapter.submitData()
+                }*/
             }
         }
     }

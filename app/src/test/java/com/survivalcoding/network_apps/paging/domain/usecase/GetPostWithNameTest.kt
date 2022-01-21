@@ -10,9 +10,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class GetListOfPostWithNameTest {
+class GetPostWithNameTest {
     private lateinit var userUseCase: GetRemoteUserById
-    private lateinit var postWithNameUseCase: GetListOfPostWithName
+    private lateinit var postWithNameUseCase: GetPostWithName
     private lateinit var repository: PostRepository
 
 
@@ -21,7 +21,7 @@ class GetListOfPostWithNameTest {
         repository =
             PostRepositoryImpl(postRemoteDataSource = PostRemoteDataSource(RetrofitClient.apiService))
         userUseCase = GetRemoteUserById(repository)
-        postWithNameUseCase = GetListOfPostWithName(userUseCase)
+        postWithNameUseCase = GetPostWithName(userUseCase)
     }
 
     @Test

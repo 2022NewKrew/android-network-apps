@@ -18,7 +18,7 @@ class PostPagingSource(
             LoadResult.Page(
                 data = response,
                 prevKey = if (nextPageNumber > 1) nextPageNumber - 1 else null,
-                nextKey = nextPageNumber + 1
+                nextKey = if (response.isEmpty()) null else nextPageNumber + 1
             )
         } catch (exception: IOException) {
             return LoadResult.Error(exception)

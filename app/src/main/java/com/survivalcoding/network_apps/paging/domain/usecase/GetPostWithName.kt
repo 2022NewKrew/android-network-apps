@@ -3,7 +3,7 @@ package com.survivalcoding.network_apps.paging.domain.usecase
 import com.survivalcoding.network_apps.paging.domain.model.Post
 import com.survivalcoding.network_apps.paging.domain.model.PostWithName
 
-class GetListOfPostWithName(
+class GetPostWithName(
     private val getRemoteUserById: GetRemoteUserById
 ) {
     suspend operator fun invoke(

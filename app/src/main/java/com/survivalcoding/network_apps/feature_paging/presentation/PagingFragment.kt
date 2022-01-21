@@ -11,9 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import androidx.paging.LoadStates
-import androidx.paging.filter
-import androidx.paging.map
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -21,8 +19,6 @@ import com.survivalcoding.network_apps.MyApp
 import com.survivalcoding.network_apps.R
 import com.survivalcoding.network_apps.feature_paging.presentation.adapter.PostInfoListAdapter
 import com.survivalcoding.network_apps.feature_paging.presentation.util.PostInfoViewModelProvider
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -38,7 +34,12 @@ class PagingFragment : Fragment(R.layout.fragment_paging) {
             (requireActivity().application as MyApp).userRepository
         )
     }
-    private val adapter = PostInfoListAdapter()
+    private val adapter = PostInfoListAdapter(
+        userFromCache = { id -> viewModel.getUserFromCache(id) },
+        userFromNet = { id ->
+            viewModel.eventHandler(TestEvent.RequestNet(id))
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +52,7 @@ class PagingFragment : Fragment(R.layout.fragment_paging) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
         val recyclerView = view.findViewById<RecyclerView>(R.id.paging_recyclerview)
 
@@ -58,18 +60,32 @@ class PagingFragment : Fragment(R.layout.fragment_paging) {
         recyclerView.adapter = adapter
 
 
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 adapter.addLoadStateListener {
-                    // 뭔가 찝찝함이 남아있다.
-                    if (it.refresh::class == LoadState.Error::class) {
+                    if (it.refresh is LoadState.Error) {
+                        println((it.refresh as LoadState.Error).error.message)
                         Snackbar.make(view, "ERROR!!!", Snackbar.LENGTH_SHORT).show()
                     }
                 }
-                viewModel.postPagingData
-                    .collectLatest {
-                        adapter.submitData(it)
+
+                viewModel.state.collectLatest {
+                    it.post?.collectLatest { posts ->
+                        adapter.submitData(PagingData.empty())
+                        println(it.users)
+                        adapter.submitData(posts)
                     }
+
+                }
+
+/*                viewModel.state.post?.collectLatest { pagingData ->
+                    adapter.submitData(pagingData)
+                }
+
+                viewModel. {
+                    adapter.submitData()
+                }*/
             }
         }
     }

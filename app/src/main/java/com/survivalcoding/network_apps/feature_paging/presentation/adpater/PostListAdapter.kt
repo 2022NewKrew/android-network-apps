@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.network_apps.feature_paging.presentation.PostItem
 
-class PostListAdapter(val threshold: Int, val infiniteScrollListener: InfiniteScrollListener) :
+class PostListAdapter(val threshold: Int, private val infiniteScrollListener: InfiniteScrollListener, private val onBodyTextClick: (Int) -> Unit) :
     ListAdapter<PostItem, PostItemViewHolder>(PostItemDiffUtilItemCallback()) {
 
     private val onScrollListener = object : RecyclerView.OnScrollListener() {
@@ -40,7 +40,7 @@ class PostListAdapter(val threshold: Int, val infiniteScrollListener: InfiniteSc
         PostItemViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: PostItemViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onBodyTextClick)
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {

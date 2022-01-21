@@ -32,7 +32,9 @@ class PostListActivity : AppCompatActivity() {
             override fun load() {
                 viewModel.loadNextPage()
             }
-        })
+        }) {
+            viewModel.toggleFoldedState(it)
+        }
     }
 
     private val loadIndicatorAdapter: LoadIndicatorAdapter by lazy {

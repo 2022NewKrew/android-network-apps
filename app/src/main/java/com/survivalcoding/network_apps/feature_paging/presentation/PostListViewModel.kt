@@ -54,14 +54,26 @@ class PostListViewModel @Inject constructor(
                 if (BuildConfig.DEBUG) {
                     httpException.printStackTrace()
                 }
-                _postListUiState.value = _postListUiState.value.copy(isError = true, isLoading = false)
+                _postListUiState.value =
+                    _postListUiState.value.copy(isError = true, isLoading = false)
             } catch (exception: Exception) {
                 if (BuildConfig.DEBUG) {
                     exception.printStackTrace()
                 }
-                _postListUiState.value = _postListUiState.value.copy(isError = true, isLoading = false)
+                _postListUiState.value =
+                    _postListUiState.value.copy(isError = true, isLoading = false)
             }
         }
+    }
+
+    fun toggleFoldedState(postId: Int) {
+        _postListUiState.value =
+            _postListUiState.value.copy(
+                postList = _postListUiState.value.postList.map {
+                    if (it.post.id == postId) it.copy(isFolded = !it.isFolded)
+                    else it
+                }.toMutableList()
+            )
     }
 
     data class PostListUiState(
@@ -77,5 +89,6 @@ class PostListViewModel @Inject constructor(
 
 data class PostItem(
     val post: Post,
-    val user: User
+    val user: User,
+    val isFolded: Boolean = true
 )

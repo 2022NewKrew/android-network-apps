@@ -7,8 +7,10 @@ import com.survivalcoding.network_apps.feature_paging.data.datasource.remote.Rem
 import com.survivalcoding.network_apps.feature_paging.domain.model.Post
 import com.survivalcoding.network_apps.feature_paging.domain.repository.PostRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class PostRepositoryImpl(private val dataSource: RemotePostDataSource) : PostRepository {
+class PostRepositoryImpl @Inject constructor(private val dataSource: RemotePostDataSource) :
+    PostRepository {
     override fun getPosts(): Flow<PagingData<Post>> {
         return Pager(PagingConfig(pageSize = 20)) {
             dataSource

@@ -4,8 +4,10 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.survivalcoding.network_apps.feature_paging.data.datasource.remote.service.PostService
 import com.survivalcoding.network_apps.feature_paging.domain.model.Post
+import javax.inject.Inject
 
-class RemotePostDataSource(private val service: PostService) : PagingSource<Int, Post>() {
+class RemotePostDataSource @Inject constructor(private val service: PostService) :
+    PagingSource<Int, Post>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
         return try {
             val next = params.key ?: 1

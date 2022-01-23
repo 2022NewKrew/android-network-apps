@@ -12,7 +12,7 @@ class GetPostAndWriterUseCase @Inject constructor(
     private val getPostsUseCase: GetPostsUseCase,
     private val getUserUseCase: GetUserUseCase
 ) {
-    suspend operator fun invoke(page: Int, pageSize: Int): List<Pair<Post, User>> {
+    suspend operator fun invoke(page: Int, pageSize: Int, coroutineScope: CoroutineScope): List<Pair<Post, User>> {
         val deferredPostWriters = mutableMapOf<Int, Deferred<User>>()
 
         val newPosts = getPostsUseCase(page, pageSize).filter {
@@ -20,7 +20,7 @@ class GetPostAndWriterUseCase @Inject constructor(
         }
 
         newPosts.forEach {
-            deferredPostWriters[it.id ?: 0] = CoroutineScope(Dispatchers.IO).async {
+            deferredPostWriters[it.id ?: 0] = coroutineScope.async {
                 getUserUseCase(it.userId ?: 0)
             }
         }

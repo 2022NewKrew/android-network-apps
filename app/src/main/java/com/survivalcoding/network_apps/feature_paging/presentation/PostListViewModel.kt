@@ -38,7 +38,7 @@ class PostListViewModel @Inject constructor(
             _postListUiState.value = _postListUiState.value.copy(isLoading = true, isError = false)
 
             try {
-                val postsAndWriters = getPostAndWriterUseCase(page, PAGE_SIZE)
+                val postsAndWriters = getPostAndWriterUseCase(page, PAGE_SIZE, viewModelScope)
                 val newPostItemList = _postListUiState.value.postList.plus(postsAndWriters.map {
                     PostItem(it.first, it.second)
                 })

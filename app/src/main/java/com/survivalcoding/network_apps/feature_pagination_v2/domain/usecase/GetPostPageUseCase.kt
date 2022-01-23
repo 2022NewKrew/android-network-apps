@@ -5,8 +5,8 @@ import com.survivalcoding.network_apps.feature_pagination_v2.domain.repository.P
 
 class GetPostPageUseCase(
     private val repository: PostRepository,
-) {
-    suspend operator fun invoke(page: Int, size: Int): List<Post> {
-        return repository.getPostsPage(page, size)
+) : BaseUseCase() {
+    suspend operator fun invoke(page: Int, size: Int): Result<List<Post>> {
+        return result { repository.getPostsPage(page, size) }
     }
 }

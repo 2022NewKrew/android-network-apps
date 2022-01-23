@@ -9,6 +9,7 @@ import android.widget.ListView
 import com.survivalcoding.network_apps.feature_conferences.presentation.ConferencesActivity
 import com.survivalcoding.network_apps.feature_basic.presentation.BasicActivity
 import com.survivalcoding.network_apps.feature_pagination.presentation.PaginationActivity
+import com.survivalcoding.network_apps.feature_pagination_v2.presentation.PaginationV2Activity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +26,9 @@ class MainActivity : AppCompatActivity() {
                 },
                 AppInfo("Paging") {
                     startActivity(Intent(this@MainActivity, PaginationActivity::class.java))
+                },
+                AppInfo("Pagination_v2") {
+                    startActivity(Intent(this@MainActivity, PaginationV2Activity::class.java))
                 },
             )
 

@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Network_apps">
         <activity
+            android:name=".feature_pagination_v2.presentation.PaginationV2Activity"
+            android:exported="false" />
+        <activity
             android:name=".feature_pagination.presentation.PaginationActivity"
             android:exported="false" />
         <activity

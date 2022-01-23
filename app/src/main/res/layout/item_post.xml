@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    android:background="#BEF0F6">
 
     <TextView
         android:id="@+id/idText"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:background="#95A4F8"
         android:gravity="center"
-        android:text="TextView"
+        android:textColor="#1A237E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/contentLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,25 +51,28 @@
             android:id="@+id/bodyText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="20dp"
             android:ellipsize="end"
             android:maxLines="1"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="#455A64"
             app:layout_constraintEnd_toEndOf="@+id/titleText"
             app:layout_constraintStart_toStartOf="@+id/titleText"
-            app:layout_constraintTop_toBottomOf="@+id/nameText"
+            app:layout_constraintTop_toBottomOf="@+id/titleText"
             tools:text="It is content" />
 
         <TextView
             android:id="@+id/nameText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:gravity="end"
+            android:textColor="#455A64"
             android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/titleText"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/titleText"
-            app:layout_constraintTop_toBottomOf="@+id/titleText"
+            app:layout_constraintTop_toBottomOf="@+id/bodyText"
             tools:text="user" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

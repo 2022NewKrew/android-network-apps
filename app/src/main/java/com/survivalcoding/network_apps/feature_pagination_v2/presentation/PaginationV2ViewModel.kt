@@ -21,6 +21,10 @@ class PaginationV2ViewModel(
     private val _userName = MutableStateFlow<Map<Int, String>>(mapOf())
     private val _folded = MutableStateFlow<Map<Int, Boolean>>(mapOf())
 
+    private var targetPage = 1
+    private var lastLoadedCount = -1
+    private val pageSize = 20
+
     val postItem = combine(_posts, _userName, _folded) { posts, _, folded ->
         posts.map { post ->
             val name = getUserName(post.id)
@@ -33,13 +37,36 @@ class PaginationV2ViewModel(
             val nameMap = _userName.value.toMutableMap()
             if (nameMap[id] == null) {
                 when (val name = useCases.getUserByIdUseCase(id)) {
-                    is Result.Error -> _state.value = State.Error(LoadingError.UserLoadingError)
+                    is Result.Error -> _state.value =
+                        State.Error(LoadingError.UserLoadingError(name.error))
                     is Result.Success -> nameMap[id] = name.data.name
                 }
             }
             _userName.value = nameMap
         }
         return _userName.value[id] ?: ""
+    }
+
+    fun loadPage() {
+        if (lastLoadedCount == 0) {
+            _state.value = State.EndLoading
+            return
+        }
+
+        viewModelScope.launch {
+            _state.value = State.Loading
+
+            when (val loadPostsResult = useCases.getPostPageUseCase(targetPage, pageSize)) {
+                is Result.Error -> _state.value =
+                    State.Error(LoadingError.PostLoadingError(loadPostsResult.error))
+                is Result.Success -> {
+                    val loadedList = loadPostsResult.data
+                    _posts.value = _posts.value.plus(loadedList)
+                    lastLoadedCount = loadedList.size
+                    _state.value = State.NotLoading
+                }
+            }
+        }
     }
 }
 
@@ -52,8 +79,8 @@ sealed class State {
 }
 
 sealed class LoadingError {
-    object UserLoadingError : LoadingError()
-    object PostLoadingError : LoadingError()
+    data class UserLoadingError(val t: Throwable) : LoadingError()
+    data class PostLoadingError(val t: Throwable) : LoadingError()
 }
 
 class PaginationV2ViewModelFactory(

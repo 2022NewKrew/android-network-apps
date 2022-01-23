@@ -13,6 +13,10 @@ import com.survivalcoding.network_apps.feature_pagination.data.datasource.remote
 import com.survivalcoding.network_apps.feature_pagination.data.datasource.remote.service.PageResourceService
 import com.survivalcoding.network_apps.feature_pagination.data.repository.PostItemsRepositoryImpl
 import com.survivalcoding.network_apps.feature_pagination.domain.repository.PostItemRepository
+import com.survivalcoding.network_apps.feature_pagination_v2.data.PostDataSource
+import com.survivalcoding.network_apps.feature_pagination_v2.data.PostRepositoryImpl
+import com.survivalcoding.network_apps.feature_pagination_v2.data.PostService
+import com.survivalcoding.network_apps.feature_pagination_v2.data.RetrofitClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -41,4 +45,9 @@ class App : Application() {
 
     val paginationRepository =
         PostItemsRepositoryImpl(PageRemotePostItemDataSource(paginationService))
+
+    private val paginationV2Service =
+        RetrofitClient.getClient().create(PostService::class.java)
+    val paginationV2Repository =
+        PostRepositoryImpl(PostDataSource(paginationV2Service))
 }

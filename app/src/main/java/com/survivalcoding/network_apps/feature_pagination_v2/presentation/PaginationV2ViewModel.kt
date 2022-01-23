@@ -27,10 +27,11 @@ class PaginationV2ViewModel(
 
     val postItem = combine(_posts, _userName, _folded) { posts, _, folded ->
         posts.map { post ->
-            val name = getUserName(post.id)
+            val name = getUserName(post.userId)
             PostItem(post, name, folded[post.id] ?: false)
         }
     }.asLiveData()
+    val state = _state.asLiveData()
 
     private fun getUserName(id: Int): String {
         viewModelScope.launch {
@@ -39,7 +40,7 @@ class PaginationV2ViewModel(
                 when (val name = useCases.getUserByIdUseCase(id)) {
                     is Result.Error -> _state.value =
                         State.Error(LoadingError.UserLoadingError(name.error))
-                    is Result.Success -> nameMap[id] = name.data.name
+                    is Result.Success -> nameMap[id] = name.data.username
                 }
             }
             _userName.value = nameMap
@@ -63,6 +64,7 @@ class PaginationV2ViewModel(
                     val loadedList = loadPostsResult.data
                     _posts.value = _posts.value.plus(loadedList)
                     lastLoadedCount = loadedList.size
+                    targetPage += 1
                     _state.value = State.NotLoading
                 }
             }

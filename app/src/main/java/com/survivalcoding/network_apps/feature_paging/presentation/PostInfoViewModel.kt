@@ -34,9 +34,8 @@ class PostInfoViewModel(
                             PostWithUserInfo(post = post, user = userInfo)
                         } else {
                             // network 연결이 필요한 경우
-                            userRepository.users[post.userId] = User(null, null, null)
+                            userRepository.userRequestSet(post.userId)
                             val newUser = userRepository.getUserFromNet(post.userId)
-                            userRepository.users[post.userId] = newUser
                             PostWithUserInfo(post = post, user = newUser)
                         }
                     }
@@ -48,8 +47,5 @@ class PostInfoViewModel(
 
 }
 
-data class PostWithUserInfo(
-    val post: Post,
-    val user: User?
-)
+
 

@@ -11,6 +11,10 @@ class UserRepositoryImpl(private val userDataSource: UserDataSource) : UserRepos
 
     override val users: MutableMap<Int, User?> = mutableMapOf()
 
+    override fun userRequestSet(id: Int) {
+        users[id] = User(null, null, null)
+    }
+
     // 임시로 에러 처리 전부 흡수
     override suspend fun getUserFromNet(id: Int): User? = try {
         userDataSource.getUser(id)?.let {

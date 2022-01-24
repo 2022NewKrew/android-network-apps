@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadStateAdapter
+import androidx.paging.map
 import com.survivalcoding.network_apps.databinding.FragmentPostsBinding
 import com.survivalcoding.network_apps.paging.ui.posts.adapter.loadstate.PostLoadStateAdapter
 import com.survivalcoding.network_apps.paging.ui.posts.adapter.post.PostPagingAdapter
@@ -38,13 +39,15 @@ class PostsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Posts"
 
-        val adapter = PostPagingAdapter()
+        val adapter = PostPagingAdapter { postId, isExpanded ->
+            viewModel.updateIsExpandedMap(postId, isExpanded)
+        }
         binding.postsRv.adapter = adapter.withLoadStateFooter(PostLoadStateAdapter(adapter::retry))
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.posts.collectLatest {
-                    adapter.submitData(it)
+                viewModel.uiState.collectLatest {
+                    adapter.submitData(it.postItems)
                 }
             }
         }

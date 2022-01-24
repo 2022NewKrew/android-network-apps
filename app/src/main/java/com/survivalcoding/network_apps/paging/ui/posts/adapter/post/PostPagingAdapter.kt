@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.survivalcoding.network_apps.databinding.ListItemPostBinding
 import com.survivalcoding.network_apps.paging.domain.model.Post
+import com.survivalcoding.network_apps.paging.ui.posts.PostItem
 
-class PostPagingAdapter() : PagingDataAdapter<Post, PostViewHolder>(PostDiffItemCallback) {
+class PostPagingAdapter(private val onClick: (Int, Boolean) -> Unit) : PagingDataAdapter<PostItem, PostViewHolder>(PostDiffItemCallback) {
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
@@ -17,7 +18,7 @@ class PostPagingAdapter() : PagingDataAdapter<Post, PostViewHolder>(PostDiffItem
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ), onClick
         )
     }
 }

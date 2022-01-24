@@ -19,8 +19,10 @@ class PagingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        supportFragmentManager.commit {
-            replace<PostsFragment>(R.id.pagingFcv)
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                replace<PostsFragment>(R.id.pagingFcv)
+            }
         }
     }
 }

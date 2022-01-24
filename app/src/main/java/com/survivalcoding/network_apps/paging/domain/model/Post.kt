@@ -5,5 +5,4 @@ data class Post(
     val id: Int,
     val title: String,
     val userId: Int,
-    val userName: String? = null
 )

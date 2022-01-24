@@ -4,5 +4,5 @@ import com.survivalcoding.network_apps.feature_paging.domain.repository.JsonPlac
 import javax.inject.Inject
 
 class GetPostsUseCase @Inject constructor(private val jsonPlaceholderRepository: JsonPlaceholderRepository) {
-    suspend operator fun invoke(page: Int) = jsonPlaceholderRepository.getPosts(page)
+    suspend operator fun invoke(page: Int, pageSize: Int) = jsonPlaceholderRepository.getPosts(page, pageSize)
 }

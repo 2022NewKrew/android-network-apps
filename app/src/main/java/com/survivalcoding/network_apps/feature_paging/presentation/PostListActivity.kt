@@ -28,16 +28,23 @@ class PostListActivity : AppCompatActivity() {
     }
 
     private val postListAdapter: PostListAdapter by lazy {
-        PostListAdapter(15, object : InfiniteScrollListener {
-            override fun load() {
-                viewModel.loadNextPage()
+        PostListAdapter(
+            firstPageIndex = PostListViewModel.FIRST_PAGE_INDEX,
+            pageSize = PostListViewModel.PAGE_SIZE,
+            threshold = PostListViewModel.PAGE_SIZE / 2,
+            object : InfiniteScrollListener {
+                override fun load(page: Int) {
+                    viewModel.loadPage(page)
+                }
             }
-        })
+        ) {
+            viewModel.toggleFoldedState(it)
+        }
     }
 
     private val loadIndicatorAdapter: LoadIndicatorAdapter by lazy {
         LoadIndicatorAdapter {
-            viewModel.loadNextPage()
+            viewModel.loadPage(postListAdapter.lastRequestedPage)
             loadIndicatorAdapter.setLoadState(LoadState.LOADING)
         }
     }

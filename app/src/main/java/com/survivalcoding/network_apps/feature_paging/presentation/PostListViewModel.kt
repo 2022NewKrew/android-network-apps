@@ -18,7 +18,6 @@ class PostListViewModel @Inject constructor(
     private val getPostAndWriterUseCase: GetPostAndWriterUseCase
 ) : ViewModel() {
 
-    private var lastPage = FIRST_PAGE_INDEX
     private var lastLoadedCount = -1
 
     private val _postListUiState =
@@ -26,10 +25,10 @@ class PostListViewModel @Inject constructor(
     val postListUiState = _postListUiState.asStateFlow()
 
     init {
-        loadNextPage()
+        loadPage(FIRST_PAGE_INDEX)
     }
 
-    fun loadNextPage() {
+    fun loadPage(page: Int) {
         if (lastLoadedCount == 0) {
             _postListUiState.value = _postListUiState.value.copy(isLoading = false)
             return
@@ -39,29 +38,40 @@ class PostListViewModel @Inject constructor(
             _postListUiState.value = _postListUiState.value.copy(isLoading = true, isError = false)
 
             try {
-                val postsAndWriters = getPostAndWriterUseCase(lastPage)
+                val postsAndWriters = getPostAndWriterUseCase(page, PAGE_SIZE, viewModelScope)
                 val newPostItemList = _postListUiState.value.postList.plus(postsAndWriters.map {
                     PostItem(it.first, it.second)
                 })
 
-                lastPage += 1
                 lastLoadedCount = postsAndWriters.size
                 _postListUiState.value = _postListUiState.value.copy(
                     postList = newPostItemList,
-                    isLoading = lastLoadedCount != 0
+                    isLoading = lastLoadedCount == PAGE_SIZE
                 )
             } catch (httpException: HttpException) {
                 if (BuildConfig.DEBUG) {
                     httpException.printStackTrace()
                 }
-                _postListUiState.value = _postListUiState.value.copy(isError = true, isLoading = false)
+                _postListUiState.value =
+                    _postListUiState.value.copy(isError = true, isLoading = false)
             } catch (exception: Exception) {
                 if (BuildConfig.DEBUG) {
                     exception.printStackTrace()
                 }
-                _postListUiState.value = _postListUiState.value.copy(isError = true, isLoading = false)
+                _postListUiState.value =
+                    _postListUiState.value.copy(isError = true, isLoading = false)
             }
         }
+    }
+
+    fun toggleFoldedState(postId: Int) {
+        _postListUiState.value =
+            _postListUiState.value.copy(
+                postList = _postListUiState.value.postList.map {
+                    if (it.post.id == postId) it.copy(isFolded = !it.isFolded)
+                    else it
+                }.toMutableList()
+            )
     }
 
     data class PostListUiState(
@@ -71,11 +81,13 @@ class PostListViewModel @Inject constructor(
     )
 
     companion object {
-        private const val FIRST_PAGE_INDEX = 1
+        const val FIRST_PAGE_INDEX = 1
+        const val PAGE_SIZE = 30
     }
 }
 
 data class PostItem(
     val post: Post,
-    val user: User
+    val user: User,
+    val isFolded: Boolean = true
 )

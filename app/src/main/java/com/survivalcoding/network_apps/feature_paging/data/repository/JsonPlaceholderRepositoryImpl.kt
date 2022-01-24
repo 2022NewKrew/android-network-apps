@@ -9,8 +9,8 @@ import javax.inject.Inject
 
 class JsonPlaceholderRepositoryImpl @Inject constructor(private val jsonPlaceHolderDataSource: JsonPlaceHolderDataSource) :
     JsonPlaceholderRepository {
-    override suspend fun getPosts(page: Int): List<Post> {
-        val response = jsonPlaceHolderDataSource.getPosts(page)
+    override suspend fun getPosts(page: Int, pageSize: Int): List<Post> {
+        val response = jsonPlaceHolderDataSource.getPosts(page, pageSize)
 
         if (response.isSuccessful) {
             return response.body() ?: listOf()

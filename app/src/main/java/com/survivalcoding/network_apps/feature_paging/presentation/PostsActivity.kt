@@ -14,21 +14,13 @@ import com.survivalcoding.network_apps.feature_paging.data.datasource.remote.Ret
 import com.survivalcoding.network_apps.feature_paging.data.datasource.remote.service.PostService
 import com.survivalcoding.network_apps.feature_paging.data.repository.PostRepositoryImpl
 import com.survivalcoding.network_apps.feature_paging.presentation.adapter.PostListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class PostsActivity : AppCompatActivity() {
-    private val viewModel by viewModels<PostsViewModel> {
-        PostsViewModelFactory(
-            PostRepositoryImpl(
-                RemotePostDataSource(
-                    RetrofitClient.getClient().create(
-                        PostService::class.java
-                    )
-                )
-            )
-        )
-    }
+    private val viewModel: PostsViewModel by viewModels()
     private val binding by lazy { ActivityPostsBinding.inflate(layoutInflater) }
     private val adapter by lazy { PostListAdapter() }
 

@@ -23,7 +23,7 @@ class PaginationFragment : Fragment() {
     private val adapter by lazy {
         PaginationListAdapter(
             clickEvent = { item ->
-                viewModel.expendPost(item)
+                viewModel.expandPost(item)
             }
         )
     }
@@ -52,14 +52,8 @@ class PaginationFragment : Fragment() {
         }
 
         adapter.addLoadStateListener { combinedLoadStates ->
-            when (combinedLoadStates.source.refresh) {
-                // 로딩 중이지 않을 때 (활성 로드 작업이 없고 에러가 없음)
-                is LoadState.NotLoading -> {
-                    // 활성 로드 작업이 없고 에러가 없음 & 로드할 수 없음
-                    if (combinedLoadStates.append.endOfPaginationReached)
-                        viewModel.setState(PaginationState.PostLoadingError)
-                    else viewModel.setState(PaginationState.NotLoading)
-                }
+            when (combinedLoadStates.append) {
+                is LoadState.NotLoading -> viewModel.setState(PaginationState.NotLoading)
                 LoadState.Loading -> viewModel.setState(PaginationState.Loading)
                 is LoadState.Error -> viewModel.setState(PaginationState.PostLoadingError)
             }
@@ -87,9 +81,7 @@ class PaginationFragment : Fragment() {
                         adapter.retry()
                     }
                 }
-                PaginationState.Loading -> {
-                    binding.paginationProgressBar.isVisible = true
-                }
+                PaginationState.Loading -> {}
                 PaginationState.EndLoading -> {
                     binding.clUserLoadingError.isVisible = false
                     binding.paginationProgressBar.isVisible = false

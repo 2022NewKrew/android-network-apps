@@ -22,14 +22,14 @@ class PaginationViewModel(
 ) : ViewModel() {
     private val _posts = getPostsUseCase().cachedIn(viewModelScope)
     private val _userData = MutableStateFlow<Map<Int, String>>(mapOf())
-    private val _state = MutableStateFlow<PaginationState>(PaginationState.NotLoading)
     private val _isFolded = MutableStateFlow<Map<Int, Boolean>>(mapOf())
+    private val _state = MutableStateFlow<PaginationState>(PaginationState.NotLoading)
 
     val postItems = combine(_posts, _userData, _isFolded) { posts, userData, isFolded ->
         posts.map { post ->
             val name = userData[post.userId] ?: ""
-            val folded = isFolded[post.id]
-            PostItem(post, name, folded ?: false)
+            val folded = isFolded[post.id] ?: false
+            PostItem(post, name, folded)
         }
     }
     val state = _state.asLiveData()
@@ -55,7 +55,7 @@ class PaginationViewModel(
         } else _state.value = state
     }
 
-    fun expendPost(postItem: PostItem) {
+    fun expandPost(postItem: PostItem) {
         val map = _isFolded.value.toMutableMap()
         map[postItem.id] =
             when (map[postItem.id]) {

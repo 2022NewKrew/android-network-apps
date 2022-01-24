@@ -13,7 +13,7 @@ class PostPagingDataSource(
     private val pagSize: Int = 20
 ) : PagingSource<Int, Post>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
-        return LoadResult.Error(Exception("error"))
+       // return LoadResult.Error(Exception("error------"))
         val nextPageNumber = params.key ?: 1
         return try {
             val response = service.getPosts(nextPageNumber, pagSize)

@@ -1,40 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".feature_conferences.presentation.detail.DetailFragment">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.survivalcoding.network_apps.feature_conferences.presentation.ConferencesViewModel" />
+    </data>
 
-    <TextView
-        android:id="@+id/detail_tv_location"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        tools:text="🇬🇧 Location" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".feature_conferences.presentation.detail.DetailFragment">
 
-    <TextView
-        android:id="@+id/detail_tv_duration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        tools:text="Jan 07, 2020 - Jan 08, 2020" />
+        <TextView
+            android:id="@+id/detail_tv_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="@{viewModel.state.conference.location}"
+            tools:text="🇬🇧 Location" />
 
-    <TextView
-        android:id="@+id/detail_tv_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/go_to_official_website"
-        android:textColor="@color/hyper_link"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/detail_tv_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:conference="@{viewModel.state.conference}"
+            tools:text="Jan 07, 2020 - Jan 08, 2020" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/detail_tv_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/go_to_official_website"
+            android:textColor="@color/hyper_link"
+            android:onClick="@{() -> viewModel.selectConference(viewModel.state.conference)}"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</layout>

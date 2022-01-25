@@ -12,8 +12,11 @@ import com.survivalcoding.network_apps.feature_conferences.presentation.Conferen
 import com.survivalcoding.network_apps.feature_conferences.presentation.ConferencesViewModelFactory
 import android.content.Intent
 import android.net.Uri
+import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import com.survivalcoding.network_apps.databinding.FragmentDetailBinding
 import com.survivalcoding.network_apps.feature_conferences.data.datasource.remote.RemoteConferenceDataSource
+import com.survivalcoding.network_apps.feature_conferences.domain.model.Conference
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,12 +43,8 @@ class DetailFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
             viewModel.state.value?.conference?.name
 
-        viewModel.state.observe(viewLifecycleOwner) { state ->
-            // 컨퍼런스 정보 표시
-            binding.detailTvLocation.text = state.conference?.location
-            binding.detailTvDuration.text =
-                getDurationStr(state.conference?.start, state.conference?.end)
-        }
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
         // 링크 클릭 시 웹사이트로 이동
         binding.detailTvLink.setOnClickListener {
@@ -63,14 +62,19 @@ class DetailFragment : Fragment() {
         _binding = null
     }
 
-    private fun getDurationStr(start: String?, end: String?): String {
-        return try {
-            val strFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-            "${
-                DateFormat.getDateInstance(DateFormat.MEDIUM).format(strFormat.parse(start))
-            } - ${DateFormat.getDateInstance(DateFormat.MEDIUM).format(strFormat.parse(end))}"
-        } catch (e: Exception) {
-            ""
-        }
+}
+fun getDurationStr(start: String?, end: String?): String {
+    return try {
+        val strFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        "${
+            DateFormat.getDateInstance(DateFormat.MEDIUM).format(strFormat.parse(start))
+        } - ${DateFormat.getDateInstance(DateFormat.MEDIUM).format(strFormat.parse(end))}"
+    } catch (e: Exception) {
+        ""
     }
+}
+
+@BindingAdapter("conference")
+fun durationText(textView: TextView, conference: Conference) {
+    textView.text = getDurationStr(conference.start, conference.end)
 }
